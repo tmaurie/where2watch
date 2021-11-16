@@ -4,17 +4,15 @@
         app
         v-model="drawer"
         temporary
-        color="primary"
-        dark
 
     >
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="text-h6">
-            Application
+            Where2Watch
           </v-list-item-title>
           <v-list-item-subtitle>
-            subtext
+            Menu
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>

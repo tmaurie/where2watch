@@ -4,6 +4,7 @@ import vuetify from "@/plugins/vuetify";
 import VueRouter from 'vue-router';
 import axios from "axios";
 import Home from "@/components/Home";
+import WatchProvider from "@/components/WatchProvider";
 
 Vue.config.productionTip = false
 Vue.use(VueRouter);
@@ -12,7 +13,8 @@ const router = new VueRouter({
   mode: 'history',
   // base: __dirname,
   routes: [
-    { path: '/', component: Home }
+    { path: '/', component: Home },
+    { path: '/w/:id', component: WatchProvider }
   ]
 });
 

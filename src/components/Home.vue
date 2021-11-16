@@ -2,6 +2,7 @@
   <v-container fluid>
     <v-row fill-height justify="center" align="center">
       <v-col cols="6" class="shrink">
+
         <v-text-field
             label="Search"
             outlined
@@ -17,7 +18,9 @@
 </template>
 
 <script>
+
 export default {
+
   name: "Home"
 }
 </script>
