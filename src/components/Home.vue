@@ -1,13 +1,12 @@
 <template>
   <v-container fluid>
     <v-row fill-height justify="center" align="center">
-      <v-col cols="6" class="shrink">
+      <v-col cols="12" lg="6">
 
         <v-text-field
             label="Search"
             outlined
             rounded
-            background-color="white"
             append-icon="mdi-magnify"
         >
 
@@ -21,7 +20,7 @@
 
 export default {
 
-  name: "Home"
+  name: "Home",
 }
 </script>
 

@@ -26,9 +26,7 @@
 
     <v-app-bar
         app
-        color="white"
         elevation="0"
-
     >
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
@@ -38,7 +36,6 @@
 
       <v-switch
           v-model="$vuetify.theme.dark"
-          color="white"
           inset
       ></v-switch>
 
