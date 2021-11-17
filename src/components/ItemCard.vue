@@ -1,13 +1,25 @@
 <template>
 
-  <v-container fluid>
+  <v-card
+      width="200"
+      rounded="xl"
+  >
+    <v-img
+        :src="('https://image.tmdb.org/t/p/w300_and_h450_bestv2' +poster)"
+    ></v-img>
 
-  </v-container>
+    <v-card-title>
+     {{title}}
+    </v-card-title>
+
+  </v-card>
 </template>
 
 <script>
 export default {
-  name: "ItemCard"
+  name: "ItemCard",
+  props: ['title','poster'],
+
 }
 </script>
 
