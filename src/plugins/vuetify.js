@@ -11,6 +11,7 @@ const opts = {
         iconfont: 'mdiSvg',
     },
     theme : {
+        dark : true,
         themes : {
             light : {
                 primary: colors.deepPurple.accent4,

@@ -1,15 +1,19 @@
 <template>
-  <v-container fluid>
-    <v-row no-gutters >
-      <ItemCard
-          v-for="(item, idx) in info"
-          :key="idx"
-          :poster="item.poster_path"
-          :title="item.title"
-      >
+  <v-container id="container" fluid  >
+    <v-row
+        no-gutters
+      justify="center"
+    >
 
-
-      </ItemCard>
+      <v-col
+             v-for="(item, idx) in info"
+             :key="idx">
+        <ItemCard
+            :poster="item.poster_path"
+            :title="item.title"
+        >
+        </ItemCard>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -55,5 +59,7 @@ export default {
 </script>
 
 <style scoped>
-
+#container{
+  width: 1500px;
+}
 </style>

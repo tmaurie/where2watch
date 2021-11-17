@@ -18,28 +18,41 @@
       </v-list-item>
 
       <v-divider></v-divider>
-      <v-list-item-group
-          v-model="group"
-          active-class="primary--text "
-      >
+      <v-list shaped>
 
-        <v-list-item
-            v-for="(item, i) in items"
-            :key="i"
-            :to="item.route"
+        <v-list-item-group
+            v-model="group"
+            active-class="primary--text "
         >
 
+          <v-list-item
 
-          <v-list-item-icon>
-            <v-icon v-text="item.icon"></v-icon>
-          </v-list-item-icon>
+              v-for="(item, i) in items"
+              :key="i"
+              :to="item.route"
+          >
 
-          <v-list-item-content>
-            <v-list-item-title v-text="item.text"></v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
 
-      </v-list-item-group>
+            <v-list-item-icon>
+              <v-icon v-text="item.icon"></v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title v-text="item.text"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
+        </v-list-item-group>
+      </v-list>
+
+      <template v-slot:append>
+        <div class="pa-2">
+          <v-btn block href="https://github.com/tmaurie/hello-where2watch" target="_blank">
+            <v-icon>mdi-github</v-icon>
+            Github
+          </v-btn>
+        </div>
+      </template>
     </v-navigation-drawer>
 
     <v-app-bar
