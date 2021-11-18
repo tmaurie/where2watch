@@ -3,14 +3,15 @@
     <v-row fill-height justify="center" align="center">
       <v-col cols="12" lg="6">
 
-        <v-text-field
+        <v-autocomplete
             label="Search"
             outlined
             rounded
+            filled
             append-icon="mdi-magnify"
         >
 
-        </v-text-field>
+        </v-autocomplete>
       </v-col>
     </v-row>
   </v-container>

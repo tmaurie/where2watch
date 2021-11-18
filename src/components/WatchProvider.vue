@@ -1,9 +1,11 @@
 <template>
   <v-container id="container" fluid>
     <v-row
+        v-if="loaded"
         no-gutters
         justify="center"
     >
+
 
       <v-col
           v-for="(item, idx) in results"
@@ -14,6 +16,15 @@
         >
         </ItemCard>
       </v-col>
+    </v-row>
+    <v-row no-gutters v-else>
+      <v-skeleton-loader
+          v-for="i in 20"
+          :key="i"
+          class="mx-auto my-6 rounded-xl"
+          width="374"
+          type="card">
+      </v-skeleton-loader>
     </v-row>
     <div class="text-center">
       <v-pagination
@@ -40,20 +51,23 @@ export default {
     return {
       loaded: false,
       info: null,
-      results : null,
+      results: null,
       region: "FR",
       page: 1,
     }
   },
   mounted() {
 
-
     this.getByWatchProvider()
 
   },
+  beforeMount() {
+    this.getRegion()
+    console.log(this.region)
+  },
   methods: {
 
-    handlePageChange(value){
+    handlePageChange(value) {
       this.page = value
       this.getByWatchProvider()
     },
@@ -62,7 +76,7 @@ export default {
     },
     getByWatchProvider() {
       const WATCH_PROVIDER_ID = this.$route.params.id
-      axios.get("https://api.themoviedb.org/3/discover/movie?with_watch_providers=" + WATCH_PROVIDER_ID + "&watch_region=" + this.region + "&api_key=" + API_KEY +"&page=" + this.page)
+      axios.get("https://api.themoviedb.org/3/discover/movie?with_watch_providers=" + WATCH_PROVIDER_ID + "&watch_region=" + this.region + "&api_key=" + API_KEY + "&page=" + this.page)
           .then((response) => {
             this.results = response.data.results
             this.info = response.data
