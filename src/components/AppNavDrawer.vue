@@ -91,6 +91,7 @@ export default {
     drawer: false,
     selectedItem: 0,
     items: [
+      {text: 'Full Movie List', icon: 'mdi-movie-open', route: '/w/ '},
       {text: 'Netflix', icon: 'mdi-netflix', route: '/w/8'},
       {text: 'Prime Videos', icon: 'mdi-netflix', route: '/w/119'},
       {text: 'Disney+', icon: 'mdi-netflix', route: '/w/337'},
