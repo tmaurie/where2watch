@@ -19,6 +19,10 @@ const opts = {
                 accent: colors.shades.black,
                 error: colors.red.accent3,
                 background: colors.indigo.lighten5, // Not automatically applied
+            },
+            dark: {
+                primary: colors.deepPurple.accent1,
+                background: colors.blueGrey.darken4
             }
         }
     }
