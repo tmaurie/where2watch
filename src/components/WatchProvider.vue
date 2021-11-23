@@ -11,6 +11,7 @@
           v-for="(item, idx) in results"
           :key="idx">
         <ItemCard
+            :id="item.id"
             :poster="item.poster_path"
             :title="item.title"
         >
@@ -50,7 +51,7 @@ export default {
   data() {
     return {
       loaded: false,
-      info: null,
+      info: [],
       results: null,
       region: "FR",
       page: 1,

@@ -31,7 +31,6 @@
       <v-list shaped>
 
         <v-list-item-group
-            v-model="group"
             active-class="primary--text "
         >
 
