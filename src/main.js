@@ -5,7 +5,8 @@ import VueRouter from 'vue-router';
 import axios from "axios";
 import Home from "@/pages/Home";
 import WatchProvider from "@/pages/WatchProvider";
-import ItemDetail from "@/pages/ItemDetail";
+import MovieDetail from "@/pages/MovieDetail";
+import SerieDetail from "@/pages/SerieDetail";
 
 Vue.config.productionTip = false
 Vue.use(VueRouter);
@@ -16,7 +17,8 @@ const router = new VueRouter({
   routes: [
     { path: '/', component: Home },
     { path: '/w/:id', component: WatchProvider },
-    { path: '/m/:id', component: ItemDetail }
+    { path: '/m/:id', component: MovieDetail },
+    { path: '/s/:id', component: SerieDetail }
   ]
 });
 

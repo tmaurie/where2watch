@@ -1,5 +1,11 @@
 <template>
   <v-container id="container" fluid>
+    <v-row no-gutters>
+      <v-btn-toggle v-model="toggle" rounded @change="getByWatchProvider">
+        <v-btn value="movie">Films</v-btn>
+        <v-btn value="tv">Series</v-btn>
+      </v-btn-toggle>
+    </v-row>
     <v-row
         v-if="loaded"
         no-gutters
@@ -12,8 +18,10 @@
           :key="idx">
         <ItemCard
             :id="item.id"
+            :type="toggle"
             :poster="item.poster_path"
             :title="item.title"
+            :path="path"
         >
         </ItemCard>
       </v-col>
@@ -55,6 +63,8 @@ export default {
       results: null,
       region: "FR",
       page: 1,
+      toggle: 'movie',
+      path : ''
     }
   },
   mounted() {
@@ -77,7 +87,8 @@ export default {
     },
     getByWatchProvider() {
       const WATCH_PROVIDER_ID = this.$route.params.id
-      axios.get("https://api.themoviedb.org/3/discover/movie?with_watch_providers=" + WATCH_PROVIDER_ID + "&watch_region=" + this.region + "&api_key=" + API_KEY + "&page=" + this.page)
+      this.path = this.toggle === 'movie' ? 'm' : 's'
+      axios.get("https://api.themoviedb.org/3/discover/"+this.toggle+"?with_watch_providers=" + WATCH_PROVIDER_ID + "&watch_region=" + this.region + "&api_key=" + API_KEY + "&page=" + this.page)
           .then((response) => {
             this.results = response.data.results
             this.info = response.data
