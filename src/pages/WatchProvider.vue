@@ -2,8 +2,8 @@
   <v-container id="container" fluid>
     <v-row no-gutters>
       <v-btn-toggle v-model="toggle" rounded @change="getByWatchProvider">
-        <v-btn value="movie">Films</v-btn>
-        <v-btn value="tv">Series</v-btn>
+        <v-btn value="movie"><v-icon>mdi-movie-open</v-icon> &nbsp; Films</v-btn>
+        <v-btn value="tv">Series &nbsp; <v-icon>mdi-television-classic</v-icon></v-btn>
       </v-btn-toggle>
     </v-row>
     <v-row
@@ -20,7 +20,7 @@
             :id="item.id"
             :type="toggle"
             :poster="item.poster_path"
-            :title="item.title"
+            :title="toggle ==='movie' ? item.title : item.name"
             :path="path"
         >
         </ItemCard>

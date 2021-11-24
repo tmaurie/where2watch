@@ -14,7 +14,7 @@
     ></v-img>
 
     <v-card-text>
-      {{ title }} {{ type }} {{ path }}
+      {{ title }}
     </v-card-text>
 
   </v-card>
