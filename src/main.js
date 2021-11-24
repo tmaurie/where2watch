@@ -3,9 +3,9 @@ import App from './App.vue'
 import vuetify from "@/plugins/vuetify";
 import VueRouter from 'vue-router';
 import axios from "axios";
-import Home from "@/components/Home";
-import WatchProvider from "@/components/WatchProvider";
-import ItemDetail from "@/components/ItemDetail";
+import Home from "@/pages/Home";
+import WatchProvider from "@/pages/WatchProvider";
+import ItemDetail from "@/pages/ItemDetail";
 
 Vue.config.productionTip = false
 Vue.use(VueRouter);

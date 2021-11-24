@@ -72,7 +72,6 @@
 </template>
 
 <script>
-import {prominent} from "color.js";
 import axios from "axios";
 
 const imageapi = 'https://source.unsplash.com/random'
@@ -92,17 +91,6 @@ export default {
   methods: {
     getImgUrl(image) {
       return 'https://image.tmdb.org/t/p/original' + image
-    },
-    getBackgroundGradient() {
-      return 'linear-gradient(' + (Math.random() * 360) + 'deg, ' + this.colors[0] + ' 0%,' + this.colors[1] + ' 50%,' + this.colors[2] + ' 100%)';
-    },
-    getAvgColor(image) {
-      prominent(image, {amount: 4, format: 'hex', group: 30}).then(color => {
-        this.colors = color
-        console.log(color)
-        console.log(this.colors)
-        document.querySelector("#app").style.background = 'linear-gradient(' + (Math.random() * 360) + 'deg, ' + color[0] + ' 0%,' + color[1] + ' 50%,' + color[2] + ' 100%)'
-      })
     },
     getItemDetails() {
       // const ITEM_ID = this.$route.params.id
