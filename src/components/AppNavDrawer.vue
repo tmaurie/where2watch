@@ -16,42 +16,48 @@
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
-
       <v-list-item to="/">
         <v-list-item-icon>
           <v-icon>mdi-home</v-icon>
         </v-list-item-icon>
 
-        <v-list-item-content>
-          <v-list-item-title>Home</v-list-item-title>
-        </v-list-item-content>
+        <v-list-item-title>Home</v-list-item-title>
       </v-list-item>
-
-      <v-divider></v-divider>
       <v-list shaped>
 
-        <v-list-item-group
-            active-class="primary--text "
+
+        <v-list-item to="/w/ ">
+          <v-list-item-icon>
+            <v-icon >mdi-binoculars</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Discover</v-list-item-title>
+        </v-list-item>
+
+        <v-list-group
+            :value="false"
+            prepend-icon="mdi-account-circle"
+            no-action
+
         >
+          <template v-slot:activator>
+            <v-list-item-title>Providers</v-list-item-title>
+          </template>
 
           <v-list-item
-
-              v-for="(item, i) in items"
-              :key="i"
+              v-for="item in items"
+              :key="item"
+              link
               :to="item.route"
           >
-
+            <v-list-item-title v-text="item.text"></v-list-item-title>
 
             <v-list-item-icon>
               <v-icon v-text="item.icon"></v-icon>
             </v-list-item-icon>
-
-            <v-list-item-content>
-              <v-list-item-title v-text="item.text"></v-list-item-title>
-            </v-list-item-content>
           </v-list-item>
 
-        </v-list-item-group>
+
+        </v-list-group>
       </v-list>
 
       <template v-slot:append>
@@ -90,10 +96,9 @@ export default {
     drawer: false,
     selectedItem: 0,
     items: [
-      {text: 'Full Movie List', icon: 'mdi-movie-open', route: '/w/ '},
       {text: 'Netflix', icon: 'mdi-netflix', route: '/w/8'},
       {text: 'Prime Videos', icon: 'mdi-netflix', route: '/w/119'},
-      {text: 'Disney+', icon: 'mdi-netflix', route: '/w/337'},
+      {text: 'Disney+', icon: '', route: '/w/337'},
     ],
   }),
   watch: {
