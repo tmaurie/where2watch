@@ -44,8 +44,8 @@
           </template>
 
           <v-list-item
-              v-for="item in items"
-              :key="item"
+              v-for="(item, i) in items"
+              :key="i"
               link
               :to="item.route"
           >

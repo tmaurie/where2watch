@@ -56,12 +56,10 @@
               </div>
             </v-btn>
             <v-divider></v-divider>
-            <h4 class="text-h8 mb-2">
+            <h4 v-if="providers.length > 0" class="text-h8 mb-2">
               Available on :
             </h4>
             <v-chip-group>
-
-
               <v-chip v-for="provider in providers" :key="provider.provider_id">
                 <v-avatar left>
                   <v-img :src="`https://image.tmdb.org/t/p/original/${provider.logo_path}`"></v-img>
