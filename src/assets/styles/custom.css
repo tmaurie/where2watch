@@ -1,0 +1,9 @@
+.theme--light {
+  --bg-color: 255, 255, 255;
+}
+
+.theme--dark {
+  --bg-color: 30, 30, 30;
+}
+
+/*# sourceMappingURL=custom.css.map */
