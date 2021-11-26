@@ -3,8 +3,23 @@
     <v-row fill-height justify="center" align="center">
       <v-col cols="12" lg="6">
 
-        <SearchBox :input="searchResults"/>
-        <ResultList v-if="this.movie.length > 0" class="mt-0" :list="this.movie"/>
+        <!--        <SearchBox :input="searchResults"/>-->
+        <!--        <ResultList v-if="this.movie.length > 0" class="mt-0" :list="this.movie"/>-->
+        <v-autocomplete
+            :items="items"
+            :loading="isLoading"
+            :search-input.sync="searchResults"
+            outlined
+            rounded
+            hide-no-data
+            item-text="title"
+            item-value="API"
+            label="Search"
+            placeholder="Start typing to Search"
+            prepend-icon="mdi-database-search"
+            return-object
+        ></v-autocomplete>
+
       </v-col>
     </v-row>
   </v-container>
@@ -12,8 +27,6 @@
 
 <script>
 
-import SearchBox from "@/components/SearchBox";
-import ResultList from "@/components/ResultList";
 import axios from "axios";
 
 const API_KEY = process.env.VUE_APP_API_KEY
@@ -21,18 +34,21 @@ const API_KEY = process.env.VUE_APP_API_KEY
 export default {
 
   name: "Home",
-  data: () =>( {
-      movie : []
+  data: () => ({
+    titleLimit: 60,
+    movies: [],
+    isLoading: false,
+    model: null,
+    searchResults: null,
   }),
-  components: {ResultList, SearchBox},
-  methods: {
-    searchResults(typedCharacter) {
-      const input = typedCharacter;
-      //don't query the first few characters (api limits to 40 characters per 10sec)
-      if (input.length > 2) {
 
-        //do our api call for the list of results
 
+  watch: {
+    searchResults(input) {
+
+      this.isLoading = true
+
+      if (input != null && input.length > 0){
         axios.get(`https://api.themoviedb.org/3/search/movie?query=${input}`,
             {
               params: {
@@ -40,17 +56,26 @@ export default {
               }
             })
             .then((response) => {
-              this.movie = response.data.results
-              this.loaded = true
+              this.movies = response.data.results
               console.log(response)
             })
-            .finally(() => (this.loaded = true));
-      }if (typedCharacter === '') {
-        this.movie = []
+            .finally(() => (this.isLoading = false));
+      } else {
+        this.movies = []
+        this.isLoading = false
       }
-    }
+    },
   },
+  computed: {
+    items() {
+      return this.movies.map(movie => {
 
+        return movie.title.length > this.titleLimit
+            ? movie.title.slice(0, this.titleLimit) + '...'
+            : movie.title
+      })
+    },
+  },
 }
 </script>
 
