@@ -1,19 +1,71 @@
 <template>
-  <v-text-field
-      label="Search"
+  <v-autocomplete
+      :items="items"
+      :loading="isLoading"
+      :search-input.sync="searchResults"
       outlined
       rounded
-      append-icon="mdi-magnify"
-      @input="input"
-  >
-
-  </v-text-field>
+      hide-no-data
+      item-text="title"
+      item-value="API"
+      label="Search"
+      placeholder="Start typing to Search"
+      prepend-icon="mdi-database-search"
+      return-object
+  ></v-autocomplete>
 </template>
 <script>
 
-export default {
-  name: 'SearchBox',
-  props : ['input']
 
+
+import axios from "axios";
+
+const API_KEY = process.env.VUE_APP_API_KEY
+
+export default {
+
+  name: "SearchBox",
+  data: () => ({
+    titleLimit: 60,
+    movies: [],
+    isLoading: false,
+    model: null,
+    searchResults: null,
+  }),
+
+
+  watch: {
+    searchResults(input) {
+
+      this.isLoading = true
+
+      if (input != null && input.length > 0){
+        axios.get(`https://api.themoviedb.org/3/search/movie?query=${input}`,
+            {
+              params: {
+                api_key: API_KEY
+              }
+            })
+            .then((response) => {
+              this.movies = response.data.results
+              console.log(response)
+            })
+            .finally(() => (this.isLoading = false));
+      } else {
+        this.movies = []
+        this.isLoading = false
+      }
+    },
+  },
+  computed: {
+    items() {
+      return this.movies.map(movie => {
+
+        return movie.title.length > this.titleLimit
+            ? movie.title.slice(0, this.titleLimit) + '...'
+            : movie.title
+      })
+    },
+  },
 }
 </script>
