@@ -1,7 +1,7 @@
 <template>
   <v-main class="pa-0" v-if="loaded">
     <v-img class="v-img--blurred" id="hero" :aspect-ratio="10" :src="getImgUrl(serie.backdrop_path)"
-           gradient="to top, rgba(30,30,30,1) 15%, rgba(30,30,30,.7) 100%">
+           gradient="to top, rgba(var(--bg-color),1) 15%, rgba(var(--bg-color),.7) 100%">
       <template v-slot:placeholder="">
         <v-row class="pa-3 ma-0 fill-height" justify="end" align="start">
           <v-progress-circular indeterminate="indeterminate" style="opacity: .25"></v-progress-circular>

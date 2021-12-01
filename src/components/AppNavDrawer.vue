@@ -40,7 +40,7 @@
 
         >
           <template v-slot:activator>
-            <v-list-item-title>Providers</v-list-item-title>
+            <v-list-item-title>Platforms</v-list-item-title>
           </template>
 
           <v-list-item
@@ -79,6 +79,8 @@
 
       <v-toolbar-title>Hello-where2watch</v-toolbar-title>
       <v-spacer></v-spacer>
+      <SearchBox/>
+      <v-spacer></v-spacer>
 
       <v-switch
           v-model="$vuetify.theme.dark"
@@ -91,7 +93,9 @@
   </div>
 </template>
 <script>
+import SearchBox from "@/components/SearchBox";
 export default {
+  components: {SearchBox},
   data: () => ({
     drawer: false,
     selectedItem: 0,
