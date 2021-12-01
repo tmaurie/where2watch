@@ -7,16 +7,18 @@ import Home from "@/pages/Home";
 import WatchProvider from "@/pages/WatchProvider";
 import MovieDetail from "@/pages/MovieDetail";
 import SerieDetail from "@/pages/SerieDetail";
+import VueMeta from "vue-meta";
 
 Vue.config.productionTip = false
 Vue.use(VueRouter);
+Vue.use(VueMeta);
 
 const router = new VueRouter({
   mode: 'history',
   // base: __dirname,
   routes: [
     { path: '/', component: Home },
-    { path: '/w/:id', component: WatchProvider },
+    { path: '/w/:id?', component: WatchProvider },
     { path: '/m/:id', component: MovieDetail },
     { path: '/s/:id', component: SerieDetail }
   ]

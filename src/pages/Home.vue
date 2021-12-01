@@ -14,6 +14,9 @@
 export default {
 
   name: "Home",
+  metaInfo: {
+    title: 'Home'
+  }
 }
 </script>
 

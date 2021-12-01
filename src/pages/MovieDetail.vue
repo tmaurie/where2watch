@@ -120,7 +120,7 @@ export default {
             }
           })
           .then((response) => {
-            this.providers = response.data.results.FR.flatrate
+            this.providers = response.data.results.FR ? response.data.results.FR.flatrate : ""
             this.loaded = true
             // console.log(response)
           })

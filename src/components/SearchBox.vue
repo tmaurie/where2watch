@@ -3,12 +3,11 @@
       :items="items"
       :loading="isLoading"
       :search-input.sync="searchResults"
-
       class="mx-4"
-
       hide-no-data
       hide-details
       cache-items
+      clearable
       flat
       solo-inverted
       :item-text="getItemText"

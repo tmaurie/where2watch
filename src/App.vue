@@ -23,6 +23,10 @@
 import AppNavDrawer from "@/components/AppNavDrawer";
 export default {
   name: 'App',
+  metaInfo: {
+    title: 'hellow2w',
+    titleTemplate: '%s | W2W'
+  },
   components: {
     AppNavDrawer
 

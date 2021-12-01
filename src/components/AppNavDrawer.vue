@@ -26,16 +26,16 @@
       <v-list shaped>
 
 
-        <v-list-item to="/w/ ">
+        <v-list-item to="/w/">
           <v-list-item-icon>
-            <v-icon >mdi-binoculars</v-icon>
+            <v-icon>mdi-binoculars</v-icon>
           </v-list-item-icon>
           <v-list-item-title>Discover</v-list-item-title>
         </v-list-item>
 
         <v-list-group
             :value="false"
-            prepend-icon="mdi-account-circle"
+            prepend-icon="mdi-television-play"
             no-action
 
         >
@@ -51,9 +51,6 @@
           >
             <v-list-item-title v-text="item.text"></v-list-item-title>
 
-            <v-list-item-icon>
-              <v-icon v-text="item.icon"></v-icon>
-            </v-list-item-icon>
           </v-list-item>
 
 
@@ -77,16 +74,18 @@
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Hello-where2watch</v-toolbar-title>
+      <v-toolbar-title>W2W</v-toolbar-title>
       <v-spacer></v-spacer>
       <SearchBox/>
       <v-spacer></v-spacer>
 
-      <v-switch
-          v-model="$vuetify.theme.dark"
-          inset
-      ></v-switch>
+      <v-btn icon @click="$vuetify.theme.dark = !$vuetify.theme.dark">
 
+        <v-icon>
+          {{ $vuetify.theme.dark ? "mdi-brightness-5" : "mdi-brightness-3" }}
+        </v-icon>
+
+      </v-btn>
     </v-app-bar>
 
 
@@ -100,9 +99,9 @@ export default {
     drawer: false,
     selectedItem: 0,
     items: [
-      {text: 'Netflix', icon: 'mdi-netflix', route: '/w/8'},
-      {text: 'Prime Videos', icon: 'mdi-netflix', route: '/w/119'},
-      {text: 'Disney+', icon: '', route: '/w/337'},
+      {text: 'Netflix',  route: '/w/8'},
+      {text: 'Prime Videos',  route: '/w/119'},
+      {text: 'Disney+',  route: '/w/337'},
     ],
   }),
   watch: {

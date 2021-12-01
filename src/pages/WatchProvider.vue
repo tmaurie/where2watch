@@ -11,8 +11,6 @@
         no-gutters
         justify="center"
     >
-
-
       <v-col
           v-for="(item, idx) in results"
           :key="idx">
@@ -74,7 +72,6 @@ export default {
   },
   beforeMount() {
     this.getRegion()
-    console.log(this.region)
   },
   methods: {
 
@@ -88,7 +85,14 @@ export default {
     getByWatchProvider() {
       const WATCH_PROVIDER_ID = this.$route.params.id
       this.path = this.toggle === 'movie' ? 'm' : 's'
-      axios.get("https://api.themoviedb.org/3/discover/"+this.toggle+"?with_watch_providers=" + WATCH_PROVIDER_ID + "&watch_region=" + this.region + "&api_key=" + API_KEY + "&page=" + this.page)
+      axios.get("https://api.themoviedb.org/3/discover/"+this.toggle, {
+        params : {
+          api_key : API_KEY,
+          ...(WATCH_PROVIDER_ID ? {with_watch_providers : WATCH_PROVIDER_ID} : {} ),
+          watch_region : this.region,
+          page : this.page
+        },
+      })
           .then((response) => {
             this.results = response.data.results
             this.info = response.data
