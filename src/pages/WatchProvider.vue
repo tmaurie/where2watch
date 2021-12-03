@@ -2,8 +2,12 @@
   <v-container id="container" fluid>
     <v-row no-gutters>
       <v-btn-toggle v-model="toggle" rounded @change="getByWatchProvider">
-        <v-btn value="movie"><v-icon>mdi-movie-open</v-icon> &nbsp; Films</v-btn>
-        <v-btn value="tv">Series &nbsp; <v-icon>mdi-television-classic</v-icon></v-btn>
+        <v-btn value="movie">
+          <v-icon>mdi-movie-open</v-icon> &nbsp; Films
+        </v-btn>
+        <v-btn value="tv">Series &nbsp;
+          <v-icon>mdi-television-classic</v-icon>
+        </v-btn>
       </v-btn-toggle>
     </v-row>
     <v-row
@@ -62,7 +66,7 @@ export default {
       region: "FR",
       page: 1,
       toggle: 'movie',
-      path : ''
+      path: ''
     }
   },
   mounted() {
@@ -85,12 +89,12 @@ export default {
     getByWatchProvider() {
       const WATCH_PROVIDER_ID = this.$route.params.id
       this.path = this.toggle === 'movie' ? 'm' : 's'
-      axios.get("https://api.themoviedb.org/3/discover/"+this.toggle, {
-        params : {
-          api_key : API_KEY,
-          ...(WATCH_PROVIDER_ID ? {with_watch_providers : WATCH_PROVIDER_ID} : {} ),
-          watch_region : this.region,
-          page : this.page
+      axios.get("https://api.themoviedb.org/3/discover/" + this.toggle, {
+        params: {
+          api_key: API_KEY,
+          ...(WATCH_PROVIDER_ID ? {with_watch_providers: WATCH_PROVIDER_ID} : {}),
+          watch_region: this.region,
+          page: this.page
         },
       })
           .then((response) => {
