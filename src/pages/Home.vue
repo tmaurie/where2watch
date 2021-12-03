@@ -3,37 +3,36 @@
     <v-row fill-height justify="center" align="center">
       <v-col cols="12" lg="6">
 
-<!--        <v-btn  @click="getRandom"> go to random</v-btn>-->
-        <v-carousel>
+        <!--        <v-btn  @click="getRandom"> go to random</v-btn>-->
+        <v-carousel hide-delimiters>
           <v-carousel-item
-              v-for="(color, i) in colors"
-              :key="color"
+              v-for="(item, i) in popular.slice(0, 5)"
+              :key="i"
+              :src="`https://image.tmdb.org/t/p/original/${item.backdrop_path}`"
+              :to="`/${item.media_type === 'movie' ? 'm' : 's'}/${item.id}`"
           >
-            <v-sheet
-                :color="color"
-                height="100%"
-                tile
-            >
-              <v-row
-                  class="fill-height"
-                  align="center"
-                  justify="center"
-              >
-                <div class="text-h2">
-                  Slide {{ i + 1 }}
-                </div>
-              </v-row>
-            </v-sheet>
+
+            <v-row class="fill-height ma-0" align="end" justify="center">
+              <div class="display-1 white--text"> {{ item.title || item.name }}
+              </div>
+            </v-row>
           </v-carousel-item>
         </v-carousel>
 
-        <v-icon v-text="$vuetify.icons.disneySvg"></v-icon>
       </v-col>
     </v-row>
+    <v-container id="container" fluid>
+      <v-row no-gutters>
+        <ResultList :info="info" :loaded="loaded" :page="page" :path="path" :results="popular.slice(5)"/>
+      </v-row>
+
+    </v-container>
   </v-container>
 </template>
 
 <script>
+
+import ResultList from "@/components/ResultList";
 
 const API_KEY = process.env.VUE_APP_API_KEY
 import axios from "axios";
@@ -41,6 +40,7 @@ import axios from "axios";
 export default {
 
   name: "Home",
+  components: {ResultList},
   metaInfo: {
     title: 'Home'
   },
@@ -50,15 +50,27 @@ export default {
       colors: [
         'primary',
         'secondary',
-        'yellow darzken-2',
+        'yellow darken-2',
         'red',
         'orange',
       ],
-      popular: []
+      popular: [],
+      loaded: false,
+      info: [],
+      region: "FR",
+      page: 1,
+      toggle: 'movie',
+      path: ''
     }
+  },
+  mounted() {
+
+    this.getPopular()
+
   },
 
   methods: {
+
     getRandom() {
       let randomPage = Math.floor(Math.random() * 30)
       let randomItem = Math.floor(Math.random() * 19);
@@ -75,19 +87,23 @@ export default {
 
     },
     getPopular() {
-      axios.get('https://api.themoviedb.org/3/movie/popular', {
+      axios.get('https://api.themoviedb.org/3/trending/movie,tv/week', {
         params: {
           api_key: API_KEY,
+          page: 1
 
         }
       }).then((response) => {
         this.popular = response.data.results
-      })
+        this.info = response.data
+      }).finally(() => (this.loaded = true))
     }
   }
 }
 </script>
 
 <style>
-
+#container {
+  width: 1500px;
+}
 </style>
