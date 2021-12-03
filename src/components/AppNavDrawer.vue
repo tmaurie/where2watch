@@ -82,7 +82,7 @@
       <v-btn icon @click="$vuetify.theme.dark = !$vuetify.theme.dark">
 
         <v-icon>
-          {{ $vuetify.theme.dark ? "mdi-brightness-5" : "mdi-brightness-3" }}
+          {{ $vuetify.theme.dark ? "mdi-white-balance-sunny" : "mdi-brightness-3" }}
         </v-icon>
 
       </v-btn>
