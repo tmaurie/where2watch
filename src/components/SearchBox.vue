@@ -28,7 +28,7 @@
                  :src="(`https://image.tmdb.org/t/p/w300_and_h450_bestv2${item.poster_path}`)"></v-img>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title v-text="item.title"></v-list-item-title>
+          <v-list-item-title v-text="item.original_title"></v-list-item-title>
           <v-list-item-subtitle v-if="item.release_date">
             {{
               new Date(item.release_date).toLocaleDateString("en-US", {
@@ -53,7 +53,7 @@
                  :src="(`https://image.tmdb.org/t/p/w300_and_h450_bestv2${item.poster_path}`)"></v-img>
         </v-list-item-avatar>
         <v-list-item-content >
-          <v-list-item-title v-text="item.name"></v-list-item-title>
+          <v-list-item-title v-text="item.original_name"></v-list-item-title>
           <v-list-item-subtitle v-if="item.first_air_date">
             {{
               new Date(item.first_air_date).toLocaleDateString("en-US", {
@@ -115,7 +115,7 @@ export default {
   },
   methods: {
     getItemText(item) {
-      return item.title || item.name
+      return item.original_title || item.original_name
     }
   }
 

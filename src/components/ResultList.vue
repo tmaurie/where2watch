@@ -30,7 +30,7 @@
 import ItemCard from "@/components/ItemCard"
 
 export default {
-  name: 'NewComponent',
+  name: 'ResultList',
   components: {ItemCard},
   data () {
     return{

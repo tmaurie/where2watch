@@ -4,7 +4,7 @@
       <v-col cols="12" lg="6">
 
         <!--        <v-btn  @click="getRandom"> go to random</v-btn>-->
-        <v-carousel hide-delimiters>
+        <v-carousel hide-delimiters cycle>
           <v-carousel-item
               v-for="(item, i) in popular.slice(0, 5)"
               :key="i"
@@ -23,7 +23,7 @@
     </v-row>
     <v-container id="container" fluid>
       <v-row no-gutters>
-        <ResultList :info="info" :loaded="loaded" :page="page" :path="path" :results="popular.slice(5)"/>
+        <ResultList :loaded="loaded" :page="page" :path="path" :results="popular.slice(5)"/>
       </v-row>
 
     </v-container>
@@ -47,13 +47,6 @@ export default {
   data() {
     return {
       randomId: null,
-      colors: [
-        'primary',
-        'secondary',
-        'yellow darken-2',
-        'red',
-        'orange',
-      ],
       popular: [],
       loaded: false,
       info: [],
