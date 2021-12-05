@@ -21,13 +21,22 @@
 
       </v-col>
     </v-row>
-    <v-container id="container" fluid>
+    <v-container class="mb-10" id="container" fluid>
       <v-row no-gutters>
         <ResultList :loaded="loaded" :page="page" :path="path" :results="popular.slice(5)"/>
       </v-row>
 
     </v-container>
+    <v-footer class="" absolute padless >
+      <v-col
+          class="text-center"
+          cols="12"
+      >
+        {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+      </v-col>
+    </v-footer>
   </v-container>
+
 </template>
 
 <script>
