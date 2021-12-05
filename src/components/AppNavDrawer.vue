@@ -74,7 +74,10 @@
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>W2W</v-toolbar-title>
+      <v-toolbar-title>
+        <v-img :src="require('@/assets/w2w.svg')" max-height="50"
+               contain></v-img>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
       <SearchBox/>
       <v-spacer></v-spacer>
