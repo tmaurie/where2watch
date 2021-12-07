@@ -10,9 +10,9 @@
       <!-- Provides the application the proper gutter -->
 
 
-        <!-- If using vue-router -->
-        <router-view :key="$route.fullPath"></router-view>
-      </v-main>
+      <!-- If using vue-router -->
+      <router-view :key="$route.fullPath"></router-view>
+    </v-main>
 
   </v-app>
 
@@ -31,8 +31,8 @@ export default {
     AppNavDrawer
 
   },
-  computed:{
-    theme(){
+  computed: {
+    theme() {
       return (this.$vuetify.theme.dark) ? 'dark' : 'light'
     }
   }

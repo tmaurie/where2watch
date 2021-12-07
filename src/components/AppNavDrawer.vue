@@ -79,7 +79,7 @@
                contain></v-img>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <SearchBox/>
+        <SearchBox/>
       <v-spacer></v-spacer>
 
       <v-btn icon @click="$vuetify.theme.dark = !$vuetify.theme.dark">

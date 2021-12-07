@@ -45,6 +45,14 @@
                     outlined="outlined" nuxt="nuxt">{{ genre.name }}
             </v-chip>
           </div>
+          <div class="mx-n1 py-2">
+            <v-chip >
+              <v-icon left>
+                mdi-clock
+              </v-icon>
+              {{getRuntime(itemDetail.runtime)}}
+            </v-chip>
+          </div>
           <v-btn class="mt-6" height="100" text="text" nuxt="nuxt" exact="exact"
                  :block="$vuetify.breakpoint.smAndDown">
             <div class="mx-n2">
@@ -71,6 +79,12 @@
               {{ provider.provider_name }}
             </v-chip>
           </v-chip-group>
+          <v-progress-circular
+              size="50"
+              :value="itemDetail.vote_average*10"
+              :color="getColor(itemDetail.vote_average*10)"
+          >{{itemDetail.vote_average*10}}</v-progress-circular>
+
         </v-col>
 
       </v-row>
@@ -83,7 +97,25 @@ export default {
   props: {
     getImgUrl: {},
     providers: {},
-    itemDetail: {type: Function}
+    itemDetail: {}
+  },
+  methods: {
+    getColor(vote) {
+      if (vote > 70) {
+        return 'green'
+      } else if (vote > 40) {
+        return 'yellow'
+      } else  {
+        return 'red'
+      }
+    },
+    getRuntime(time){
+
+      let hours = Math.floor( time/ 60);
+      let minutes = time % 60 < 10 ? ("0" + time % 60) : time % 60;
+      return hours + " h " + minutes
+    }
   }
+
 }
 </script>
