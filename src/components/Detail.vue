@@ -50,7 +50,7 @@
               <v-icon left>
                 mdi-clock
               </v-icon>
-              {{getRuntime(itemDetail.runtime)}}
+              {{getRuntime(itemDetail.runtime || itemDetail.episode_run_time)}}
             </v-chip>
           </div>
           <v-btn class="mt-6" height="100" text="text" nuxt="nuxt" exact="exact"
