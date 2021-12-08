@@ -21,17 +21,17 @@
           </v-card>
         </v-col>
         <v-col align-self="center">
-          <h1 class="display-1 font-weight-bold">{{itemDetail.original_name || itemDetail.original_title}}</h1>
+          <h1 class="display-1 font-weight-bold">{{ itemDetail.original_name || itemDetail.original_title }}</h1>
           <p v-if="itemDetail.overview">{{ itemDetail.overview }}</p>
           <div class="d-block">
-            <h2 class="subtitle-1 d-inline" v-if="itemDetail.first_air_date" ><span class="font-weight-bold">{{
+            <h2 class="subtitle-1 d-inline" v-if="itemDetail.first_air_date"><span class="font-weight-bold">{{
                 new Date(itemDetail.first_air_date).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
                   day: "numeric"
                 })
               }}</span><span class="font-weight-light" v-if="itemDetail.status"> ({{ itemDetail.status }})</span></h2>
-            <h2 class="subtitle-1 d-inline" v-else-if="itemDetail.release_date" ><span class="font-weight-bold">{{
+            <h2 class="subtitle-1 d-inline" v-else-if="itemDetail.release_date"><span class="font-weight-bold">{{
                 new Date(itemDetail.release_date).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
@@ -41,36 +41,73 @@
             <h2 class="subtitle-1 font-weight-light" v-else>(N/A)</h2>
           </div>
           <div class="mx-n1 py-2">
-            <v-chip class="ma-1" v-for="genre in itemDetail.genres" :key="genre.id" :small="$vuetify.breakpoint.smAndDown"
+            <v-chip class="ma-1" v-for="genre in itemDetail.genres" :key="genre.id"
+                    :small="$vuetify.breakpoint.smAndDown"
                     outlined="outlined" nuxt="nuxt">{{ genre.name }}
             </v-chip>
           </div>
           <div class="mx-n1 py-2">
-            <v-chip >
+            <v-chip>
               <v-icon left>
                 mdi-clock
               </v-icon>
-              {{getRuntime(itemDetail.runtime || itemDetail.episode_run_time)}}
+              {{ getRuntime(itemDetail.runtime || itemDetail.episode_run_time) }}
             </v-chip>
           </div>
-          <v-btn class="mt-6" height="100" text="text" nuxt="nuxt" exact="exact"
-                 :block="$vuetify.breakpoint.smAndDown">
+          <v-btn class="mt-6" height="100" text="text"
+                 :block="$vuetify.breakpoint.smAndDown" @click.stop="dialog = true">
             <div class="mx-n2">
               <v-avatar class="elevation-3 mx-2"
                         v-for="person in itemDetail.credits.cast.slice(0, $vuetify.breakpoint.smAndDown ? 3 : 6)"
                         :key="person.credit_id" :size="$vuetify.breakpoint.smAndDown ? 65 : 78">
                 <v-img v-if="person.profile_path" :src="`https://image.tmdb.org/t/p/original/${person.profile_path}`"
                        aspect-ratio="1"
-                       :lazy-src="getImgUrl"></v-img>
+                       :lazy-src="`https://image.tmdb.org/t/p/original/${person.profile_path}`"></v-img>
                 <span class="headline"
                       v-else>{{ person.name.split(" ")[0][0] }}{{ person.name.split(" ")[1][0] }}</span>
               </v-avatar>
-              <v-avatar class="mx-2" v-if="itemDetail.credits.cast.length - ($vuetify.breakpoint.smAndDown ? 3 : 6) &gt; 0"
+              <v-avatar class="mx-2"
+                        v-if="itemDetail.credits.cast.length - ($vuetify.breakpoint.smAndDown ? 3 : 6) &gt; 0"
                         :size="$vuetify.breakpoint.smAndDown ? 65 : 78"><span
                   class="title">+{{ itemDetail.credits.cast.length - ($vuetify.breakpoint.smAndDown ? 3 : 6) }}</span>
               </v-avatar>
             </div>
           </v-btn>
+          <v-dialog
+              v-model="dialog"
+              max-width="500"
+          >
+            <v-card>
+              <v-card-title class="text-h5">
+                Cast
+              </v-card-title>
+              <v-list nav subheader>
+
+                <v-list-item
+                    v-for="person in itemDetail.credits.cast"
+                    :key="person.credit_id"
+                    link
+                >
+                  <v-list-item-avatar>
+                    <v-img v-if="person.profile_path" :src="`https://image.tmdb.org/t/p/original/${person.profile_path}`"
+                           aspect-ratio="1"
+                           :lazy-src="`https://image.tmdb.org/t/p/original/${person.profile_path}`"></v-img>
+                    <span class="headline"
+                          v-else>{{ person.name.split(" ")[0][0] }}{{ person.name.split(" ")[1][0] }}</span>
+                  </v-list-item-avatar>
+
+                  <v-list-item-content>
+                    <v-list-item-title v-text="person.name"></v-list-item-title>
+                    <v-list-item-subtitle v-text="`as ${person.character}`"></v-list-item-subtitle>
+                  </v-list-item-content>
+
+
+                </v-list-item>
+              </v-list>
+
+
+            </v-card>
+          </v-dialog>
           <v-chip-group>
             <v-chip v-for="provider in providers" :key="provider.provider_id">
               <v-avatar left>
@@ -83,7 +120,8 @@
               size="50"
               :value="itemDetail.vote_average*10"
               :color="getColor(itemDetail.vote_average*10)"
-          >{{itemDetail.vote_average*10}}</v-progress-circular>
+          >{{ itemDetail.vote_average * 10 }}
+          </v-progress-circular>
 
         </v-col>
 
@@ -94,6 +132,11 @@
 <script>
 export default {
   name: 'Detail',
+  data() {
+    return {
+      dialog: false,
+    }
+  },
   props: {
     getImgUrl: {},
     providers: {},
@@ -105,13 +148,13 @@ export default {
         return 'green'
       } else if (vote > 40) {
         return 'yellow'
-      } else  {
+      } else {
         return 'red'
       }
     },
-    getRuntime(time){
+    getRuntime(time) {
 
-      let hours = Math.floor( time/ 60);
+      let hours = Math.floor(time / 60);
       let minutes = time % 60 < 10 ? ("0" + time % 60) : time % 60;
       return hours + " h " + minutes
     }
