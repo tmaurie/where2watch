@@ -17,20 +17,7 @@
           :to="`/${item.media_type === 'movie' ? 'm' : 's'}/${item.id}`"
       >
 
-        <v-img
-            class="align-center"
-            min-height="auto"
-            gradient="to top, rgba(var(--bg-color),1) 15%, rgba(var(--bg-color),.7) 100%"
-            :src="`https://image.tmdb.org/t/p/original/${item.backdrop_path}`"
-        >
-          <h3 class="overview_title text-center" >
-            {{ item.title ? item.title : item.name }}
-          </h3>
-          <v-row justify="center" class="pt-8">
-            <v-btn > View Details </v-btn>
-          </v-row>
-
-        </v-img>
+        <SlideShowItem :item="item"/>
       </v-carousel-item>
     </v-carousel>
     <v-container class="mb-10" id="container" fluid>
@@ -55,14 +42,15 @@
 
 
 import ResultList from "@/components/ResultList";
+import axios from "axios";
+import SlideShowItem from "@/components/SlideShowItem";
 
 const API_KEY = process.env.VUE_APP_API_KEY
-import axios from "axios";
 
 export default {
 
   name: "Home",
-  components: {ResultList},
+  components: {SlideShowItem, ResultList},
   metaInfo: {
     title: 'Home'
   },
@@ -142,12 +130,5 @@ export default {
 <style>
 #container {
   width: 1500px;
-}
-.overview_title {
-  font-size: 20px;
-  font-weight: 500;
-  letter-spacing: 10px;
-  text-transform: uppercase;
-  /*text-align: center;*/
 }
 </style>
