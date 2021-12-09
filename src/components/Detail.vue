@@ -21,7 +21,11 @@
           </v-card>
         </v-col>
         <v-col align-self="center">
-          <h1 class="display-1 font-weight-bold">{{ itemDetail.original_name || itemDetail.original_title }}</h1>
+          <v-row class="align-baseline" no-gutters>
+            <h1 class="display-1 font-weight-bold ">{{ itemDetail.name || itemDetail.title }}</h1>
+            <span class="ml-2 font-italic" >({{ itemDetail.original_name || itemDetail.title }})</span>
+          </v-row>
+
           <p v-if="itemDetail.overview">{{ itemDetail.overview }}</p>
           <div class="d-block">
             <h2 class="subtitle-1 d-inline" v-if="itemDetail.first_air_date"><span class="font-weight-bold">{{
