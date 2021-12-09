@@ -9,7 +9,7 @@
       cache-items
       clearable
       flat
-      solo-inverted
+      solo
       :item-text="getItemText"
       item-value="API"
       label="Search"

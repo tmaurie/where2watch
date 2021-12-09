@@ -1,26 +1,38 @@
 <template>
-  <v-container fluid>
-    <v-row fill-height justify="center" align="center">
-      <v-col cols="12" lg="6">
 
-        <!--        <v-btn  @click="getRandom"> go to random</v-btn>-->
-        <v-carousel hide-delimiters cycle>
-          <v-carousel-item
-              v-for="(item, i) in popular.slice(0, 5)"
-              :key="i"
-              :src="`https://image.tmdb.org/t/p/original/${item.backdrop_path}`"
-              :to="`/${item.media_type === 'movie' ? 'm' : 's'}/${item.id}`"
-          >
+  <div>
+    <v-carousel
+        height="auto"
+        width="auto"
+        cycle
+        vertical
+        hide-delimiter-background
+        :show-arrows="false"
+        delimiter-icon="mdi-minus"
+        vertical-delimiters=""
+    >
+      <v-carousel-item
+          v-for="(item, i) in popular.slice(0, 5)"
+          :key="i"
+          :to="`/${item.media_type === 'movie' ? 'm' : 's'}/${item.id}`"
+      >
 
-            <v-row class="fill-height ma-0" align="end" justify="center">
-              <div class="display-1 white--text"> {{ item.title || item.name }}
-              </div>
-            </v-row>
-          </v-carousel-item>
-        </v-carousel>
+        <v-img
+            class="align-center"
+            min-height="auto"
+            gradient="to top, rgba(var(--bg-color),1) 15%, rgba(var(--bg-color),.7) 100%"
+            :src="`https://image.tmdb.org/t/p/original/${item.backdrop_path}`"
+        >
+          <h3 class="overview_title text-center" >
+            {{ item.title ? item.title : item.name }}
+          </h3>
+          <v-row justify="center" class="pt-8">
+            <v-btn > View Details </v-btn>
+          </v-row>
 
-      </v-col>
-    </v-row>
+        </v-img>
+      </v-carousel-item>
+    </v-carousel>
     <v-container class="mb-10" id="container" fluid>
       <v-row no-gutters>
         <ResultList :loaded="loaded" :page="page" :path="path" :results="popular.slice(5)"/>
@@ -35,11 +47,12 @@
         {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
       </v-col>
     </v-footer>
-  </v-container>
 
+  </div>
 </template>
 
 <script>
+
 
 import ResultList from "@/components/ResultList";
 
@@ -62,7 +75,8 @@ export default {
       region: "FR",
       page: 1,
       toggle: 'movie',
-      path: ''
+      path: '',
+      logo: null
     }
   },
   mounted() {
@@ -98,14 +112,42 @@ export default {
       }).then((response) => {
         this.popular = response.data.results
         this.info = response.data
+        // this.logo = response.data.results[0].
       }).finally(() => (this.loaded = true))
+    },
+    fetchLogo(itemId, itemType) {
+
+      axios.get(`https://api.themoviedb.org/3/${itemType}/${itemId}/images`, {
+        params: {
+          api_key: API_KEY,
+          include_image_language: 'en'
+        }
+      }).then((response) => {
+        let logoFp = response.data.logos[0].file_path
+        return `https://image.tmdb.org/t/p/original/${logoFp}`
+      })
+    },
+    getLogo(itemId, itemType) {
+      return this.fetchLogo(itemId, itemType)
     }
   }
 }
+
+// .then((response) => {
+//   // let logoFp = response.data.logos[0].file_path
+//   // return `https://image.tmdb.org/t/p/original/${logoFp}`
+// })
 </script>
 
 <style>
 #container {
   width: 1500px;
+}
+.overview_title {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+  /*text-align: center;*/
 }
 </style>

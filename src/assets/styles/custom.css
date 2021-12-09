@@ -1,9 +1,15 @@
 .theme--light {
   --bg-color: 255, 255, 255;
+  --font-color: 18, 18, 18;
+}
+
+path {
+  fill: rgb(var(--font-color));
 }
 
 .theme--dark {
   --bg-color: 18, 18, 18;
+  --font-color: 255, 255, 255;
 }
 
 /*# sourceMappingURL=custom.css.map */
