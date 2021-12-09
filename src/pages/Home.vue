@@ -2,14 +2,15 @@
 
   <div>
     <v-carousel
+        v-if="loaded"
         height="auto"
         width="auto"
         cycle
         vertical
+        vertical-delimiters=""
         hide-delimiter-background
         :show-arrows="false"
         delimiter-icon="mdi-minus"
-        vertical-delimiters=""
     >
       <v-carousel-item
           v-for="(item, i) in popular.slice(0, 5)"
@@ -74,22 +75,6 @@ export default {
   },
 
   methods: {
-
-    getRandom() {
-      let randomPage = Math.floor(Math.random() * 30)
-      let randomItem = Math.floor(Math.random() * 19);
-      axios.get('https://api.themoviedb.org/3/movie/top_rated', {
-        params: {
-          api_key: API_KEY,
-          page: randomPage
-        }
-      }).then((response) => {
-        this.randomId = response.data.results[randomItem].id
-
-        this.$router.push({path: `/m/${this.randomId}`})
-      })
-
-    },
     getPopular() {
       axios.get('https://api.themoviedb.org/3/trending/movie,tv/week', {
         params: {
@@ -115,9 +100,6 @@ export default {
         return `https://image.tmdb.org/t/p/original/${logoFp}`
       })
     },
-    getLogo(itemId, itemType) {
-      return this.fetchLogo(itemId, itemType)
-    }
   }
 }
 

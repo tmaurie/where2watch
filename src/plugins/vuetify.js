@@ -21,7 +21,7 @@ const opts = {
                 // background: colors.indigo.lighten5, // Not automatically applied
             },
             dark: {
-                primary: colors.deepPurple.accent1,
+                primary: '#0EF6BE',
                 // background: colors.blueGrey.darken4
             }
         }

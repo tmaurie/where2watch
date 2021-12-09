@@ -12,6 +12,7 @@
         <v-col cols="12" sm="4" v-if="itemDetail.poster_path">
           <v-card elevation="15" rounded="xl">
             <v-img :src="getImgUrl" :lazy-src="getImgUrl" :aspect-ratio="2/3">
+
               <template v-slot:placeholder="">
                 <v-row class="pa-3 ma-0 fill-height" justify="center" align="center">
                   <v-progress-circular indeterminate="indeterminate"></v-progress-circular>
@@ -23,7 +24,7 @@
         <v-col align-self="center">
           <v-row class="align-baseline" no-gutters>
             <h1 class="display-1 font-weight-bold ">{{ itemDetail.name || itemDetail.title }}</h1>
-            <span class="ml-2 font-italic" >({{ itemDetail.original_name || itemDetail.title }})</span>
+            <span class="ml-2 font-italic" >({{ itemDetail.original_name || itemDetail.original_title }})</span>
           </v-row>
 
           <p v-if="itemDetail.overview">{{ itemDetail.overview }}</p>
@@ -68,7 +69,7 @@
                        aspect-ratio="1"
                        :lazy-src="`https://image.tmdb.org/t/p/original/${person.profile_path}`"></v-img>
                 <span class="headline"
-                      v-else>{{ person.name.split(" ")[0][0] }}{{ person.name.split(" ")[1][0] }}</span>
+                      v-else>{{person.name.split(" ")[0][0]}}{{person.name.split(" ")[1][0]}}</span>
               </v-avatar>
               <v-avatar class="mx-2"
                         v-if="itemDetail.credits.cast.length - ($vuetify.breakpoint.smAndDown ? 3 : 6) &gt; 0"
@@ -96,8 +97,8 @@
                     <v-img v-if="person.profile_path" :src="`https://image.tmdb.org/t/p/original/${person.profile_path}`"
                            aspect-ratio="1"
                            :lazy-src="`https://image.tmdb.org/t/p/original/${person.profile_path}`"></v-img>
-                    <span class="headline"
-                          v-else>{{ person.name.split(" ")[0][0] }}{{ person.name.split(" ")[1][0] }}</span>
+                    <v-icon class="headline"
+                          v-else>mdi-account</v-icon>
                   </v-list-item-avatar>
 
                   <v-list-item-content>
@@ -149,11 +150,11 @@ export default {
   methods: {
     getColor(vote) {
       if (vote > 70) {
-        return 'green'
+        return '#0EF6BE'
       } else if (vote > 40) {
-        return 'yellow'
+        return '#e4f368'
       } else {
-        return 'red'
+        return '#f60e5f'
       }
     },
     getRuntime(time) {
