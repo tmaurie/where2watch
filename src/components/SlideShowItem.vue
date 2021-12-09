@@ -6,12 +6,15 @@
       :src="`https://image.tmdb.org/t/p/original/${item.backdrop_path}`"
   >
 
-    <v-row class="justify-center">
-      <h3 v-if="!logo" class="overview_title text-center">
-        {{ item.title ? item.title : item.name }}
-      </h3>
+    <v-row align="center" justify="center" class="py-6">
+      <v-col cols="6" sm="2">
+        <h3 v-if="!logo" class="overview_title text-center">
+          {{ item.title ? item.title : item.name }}
+        </h3>
 
-      <v-img v-else  class="justify-center" max-width="400" :src="logo"></v-img>
+        <v-img v-else class="justify-center" contain :src="logo"></v-img>
+      </v-col>
+
 
     </v-row>
 
