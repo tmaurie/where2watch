@@ -6,6 +6,11 @@
       :src="`https://image.tmdb.org/t/p/original/${item.backdrop_path}`"
       :lazy-src="`https://image.tmdb.org/t/p/original/${item.backdrop_path}`"
   >
+    <template v-slot:placeholder>
+      <v-row class="pa-3 ma-0 fill-height" justify="start" align="start">
+        <v-progress-circular indeterminate="indeterminate"></v-progress-circular>
+      </v-row>
+    </template>
 
     <v-row align="center" justify="center" class="py-6">
       <v-col cols="6" sm="2" v-if="loaded">
