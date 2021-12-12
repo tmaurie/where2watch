@@ -49,7 +49,7 @@
               :to="item.route"
           >
             <v-list-item-title v-text="item.text"></v-list-item-title>
-
+            <v-img :src="item.icon"></v-img>
           </v-list-item>
 
 
@@ -109,9 +109,9 @@ export default {
     drawer: false,
     selectedItem: 0,
     items: [
-      {text: 'Netflix',  route: '/w/8'},
-      {text: 'Prime Videos',  route: '/w/119'},
-      {text: 'Disney+',  route: '/w/337'},
+      {text: 'Netflix',  route: '/w/8', icon : require('@/assets/img/icon-netflix.png')},
+      {text: 'Prime Videos',  route: '/w/119',  icon : require('@/assets/img/icon-amazon.png')},
+      {text: 'Disney+',  route: '/w/337',  icon : require('@/assets/img/icon-disney.png')},
     ],
   }),
   watch: {
