@@ -2,16 +2,17 @@
 
   <v-hover v-slot:default="{ hover }">
 
-    <v-card flat width="200" :to='`/${path}/${id}`' :active-class="$vuetify.theme.dark ? 'grey darken-4' : 'grey lighten-3'"
+    <v-card flat width="200"  :to='`/${path}/${id}`' :active-class="$vuetify.theme.dark ? 'grey darken-4' : 'grey lighten-3'"
             :color="hover  ? $vuetify.theme.dark ? 'grey darken-4' : 'grey lighten-3' : 'transparent'">
       <v-container fluid class="pa-1">
-        <v-row no-gutters align-content="center">
+        <v-row no-gutters align-content="center" >
           <v-col cols="12">
             <v-card
                 elevation="12"
 
             >
               <v-img
+                  :aspect-ratio="2/3" width='100%'
                   :lazy-src="('https://image.tmdb.org/t/p/w200' +poster)"
                   :src="('https://image.tmdb.org/t/p/w200' +poster)"
               >
@@ -23,6 +24,7 @@
                 <v-overlay :value='hover' absolute opacity='.95'
                            :color='$vuetify.theme.dark ? "grey darken-4" : "grey lighten-3"'
                            :light='$vuetify.theme.light' :dark='$vuetify.theme.dark'>
+
                 </v-overlay>
               </v-img>
             </v-card>

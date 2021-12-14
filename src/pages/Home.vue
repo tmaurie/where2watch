@@ -21,16 +21,13 @@
         <SlideShowItem :item="item"/>
       </v-carousel-item>
     </v-carousel>
-    <v-container class="mb-10" id="container" fluid>
-
       <ResultList :loaded="loaded" :page="page" :path="path" :results="popular.slice(5)"/>
-    </v-container>
     <v-footer class="" absolute padless>
       <v-col
           class="text-center"
           cols="12"
       >
-        {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+        {{ new Date().getFullYear() }} — <strong>powered by <a class="text-decoration-none" href="https://developers.themoviedb.org/3">TMDB</a></strong>
       </v-col>
     </v-footer>
 

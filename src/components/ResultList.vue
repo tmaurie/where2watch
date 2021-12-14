@@ -1,9 +1,11 @@
 <template>
   <v-container class="mb-10 " id="container" fluid>
+
     <v-row
         justify="center"
         v-if="loaded"
     >
+
       <ItemCard
           v-for="(item, idx) in results"
           :key="idx"
@@ -14,15 +16,7 @@
       >
       </ItemCard>
     </v-row>
-    <v-row no-gutters v-else>
-      <v-skeleton-loader
-          v-for="i in 20"
-          :key="i"
-          class="mx-auto my-6 rounded-xl"
-          width="374"
-          type="card">
-      </v-skeleton-loader>
-    </v-row>
+
   </v-container>
 </template>
 <script>
