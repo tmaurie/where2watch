@@ -1,6 +1,6 @@
 # hello-where2watch
 
-See live @ hellow2w.netlify.app
+See live at [hellow2w.netlify.app/](https://hellow2w.netlify.app/)
 
 ## Project setup
 ```
