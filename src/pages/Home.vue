@@ -5,7 +5,7 @@
         v-if="loaded"
         height="auto"
         width="auto"
-        cycle
+
         vertical
         vertical-delimiters=""
         hide-delimiter-background
@@ -22,12 +22,10 @@
       </v-carousel-item>
     </v-carousel>
     <v-container class="mb-10" id="container" fluid>
-      <v-row no-gutters>
-        <ResultList :loaded="loaded" :page="page" :path="path" :results="popular.slice(5)"/>
-      </v-row>
 
+      <ResultList :loaded="loaded" :page="page" :path="path" :results="popular.slice(5)"/>
     </v-container>
-    <v-footer class="" absolute padless >
+    <v-footer class="" absolute padless>
       <v-col
           class="text-center"
           cols="12"
@@ -102,15 +100,10 @@ export default {
     },
   }
 }
-
-// .then((response) => {
-//   // let logoFp = response.data.logos[0].file_path
-//   // return `https://image.tmdb.org/t/p/original/${logoFp}`
-// })
 </script>
 
 <style>
 #container {
-  width: 1500px;
+  width: 1080px;
 }
 </style>

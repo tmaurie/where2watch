@@ -3,7 +3,7 @@
     <v-row no-gutters>
       <v-btn-toggle v-model="toggle" rounded @change="getByWatchProvider">
         <v-btn value="movie">
-          <v-icon>mdi-movie-open</v-icon> &nbsp; Films
+          <v-icon>mdi-movie-open</v-icon> &nbsp; Movies
         </v-btn>
         <v-btn value="tv">Series &nbsp;
           <v-icon>mdi-television-classic</v-icon>
@@ -84,7 +84,5 @@ export default {
 </script>
 
 <style scoped>
-#container {
-  width: 1500px;
-}
+
 </style>
