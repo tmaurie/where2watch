@@ -1,7 +1,7 @@
 <template>
-  <v-container id="container" fluid>
+  <div>
     <v-row justify="center" class="mb-2" no-gutters>
-      <v-btn-toggle v-model="toggle" shaped color="primary"  @change="getByWatchProvider">
+      <v-btn-toggle v-model="toggle" shaped color="primary" @change="getByWatchProvider">
         <v-btn value="movie">
           <v-icon>mdi-movie-open</v-icon> &nbsp; Movies
         </v-btn>
@@ -19,7 +19,7 @@
           @input="handlePageChange"
       ></v-pagination>
     </div>
-  </v-container>
+  </div>
 </template>
 
 <script>

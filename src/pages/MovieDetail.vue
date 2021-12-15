@@ -2,11 +2,9 @@
   <v-main class="pa-0" v-if="loaded">
 
     <Detail :get-img-url="getImgUrl(movie.poster_path)" :providers="providers" :item-detail="movie"/>
-    <v-container id="container" fluid>
-      <v-row no-gutters>
-        <ResultList :loaded="loaded" :page="page" :path="path" type="movie" :results="similarMovies.slice(0,5)"/>
-      </v-row>
-    </v-container>
+    <v-row no-gutters>
+      <ResultList :loaded="loaded" :page="page" :path="path" type="movie" :results="similarMovies.slice(0,5)"/>
+    </v-row>
 
   </v-main>
 </template>
@@ -72,7 +70,7 @@ export default {
           {
             params: {
               api_key: API_KEY,
-              page : this.page
+              page: this.page
             }
           })
           .then((response) => {
