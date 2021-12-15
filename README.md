@@ -1,5 +1,7 @@
 # hello-where2watch
 
+See live at [hellow2w.netlify.app/](https://hellow2w.netlify.app/)
+
 ## Project setup
 ```
 npm install
