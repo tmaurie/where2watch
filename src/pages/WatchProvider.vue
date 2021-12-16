@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-row justify="center" class="mb-2" no-gutters>
+    <v-row justify="center" class="mb-2 mt-4" no-gutters>
       <v-btn-toggle v-model="toggle" shaped color="primary" @change="getByWatchProvider">
         <v-btn value="movie">
           <v-icon>mdi-movie-open</v-icon> &nbsp; Movies
@@ -14,7 +14,7 @@
     <div class="text-center">
       <v-pagination
           v-model="page"
-          :length="info.total_pages"
+          :length="info.total_pages <= 500 ? info.total_pages : 500 "
           total-visible="6"
           @input="handlePageChange"
       ></v-pagination>

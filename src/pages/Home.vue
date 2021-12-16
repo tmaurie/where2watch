@@ -21,13 +21,14 @@
         <SlideShowItem :item="item"/>
       </v-carousel-item>
     </v-carousel>
-      <ResultList :loaded="loaded" :page="page" :path="path" :results="popular.slice(5)"/>
-    <v-footer class="" absolute padless>
+    <ResultList :loaded="loaded" :page="page" :path="path" :results="popular.slice(5)"/>
+    <v-footer absolute padless>
       <v-col
           class="text-center"
           cols="12"
       >
-        {{ new Date().getFullYear() }} — <strong>powered by <a class="text-decoration-none" href="https://developers.themoviedb.org/3">TMDB</a></strong>
+        {{ new Date().getFullYear() }} — <strong>powered by <a class="text-decoration-none"
+                                                               href="https://developers.themoviedb.org/3">TMDB</a></strong>
       </v-col>
     </v-footer>
 

@@ -1,5 +1,5 @@
 <template>
-  <v-container class="mb-10 " id="container" fluid>
+  <v-container class="mb-16" id="container" fluid>
 
     <v-row
         justify="center"
@@ -10,7 +10,7 @@
           v-for="(item, idx) in results"
           :key="idx"
           :id="item.id"
-          :poster="item.poster_path"
+          :poster="item.poster_path !== null ? item.poster_path : 'src/assets/logo.png' "
           :title="type  === 'movie' || item.media_type === 'movie' ? item.title : item.name"
           :path="type  === 'movie' || item.media_type === 'movie' ? 'm' : 's'"
       >

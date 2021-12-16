@@ -60,6 +60,12 @@
           </v-list-item-icon>
           <v-list-item-title>Get me random !</v-list-item-title>
         </v-list-item>
+        <v-list-item to="/search">
+          <v-list-item-icon>
+            <v-icon>mdi-feature-search</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Custom Search</v-list-item-title>
+        </v-list-item>
       </v-list>
 
       <template v-slot:append>

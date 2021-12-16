@@ -104,7 +104,6 @@ export default {
             })
             .then((response) => {
               this.items = response.data.results
-              console.log(response)
             })
             .finally(() => (this.isLoading = false));
       } else {
