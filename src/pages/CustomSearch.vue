@@ -82,7 +82,8 @@
     </v-row>
 
     <v-row class="mb-8 mt-8" justify="center">
-      <v-btn @click="getResultList(typeWatch,selectedGenres,selectedWatchProviders,selectedKeywords)">Search</v-btn>
+      <v-btn class="ma-2" @click="getResultList(typeWatch,selectedGenres,selectedWatchProviders,selectedKeywords, false)">Search</v-btn>
+      <v-btn class="ma-2" @click="getResultList(typeWatch,selectedGenres,selectedWatchProviders,selectedKeywords, true)">Surprise me !<v-icon>mdi-dice-5</v-icon></v-btn>
     </v-row>
 
 
@@ -111,7 +112,8 @@ export default {
     path: '',
     toggle: 'movie',
     typeWatch: "movie",
-    searchKeyword: null
+    searchKeyword: null,
+    page : 1
   }),
 
   mounted() {
@@ -143,7 +145,9 @@ export default {
         this.watchProvidersList = response.data.results
       })
     },
-    getResultList(type, genres, platform, keywords) {
+    getResultList(type, genres, platform, keywords, random) {
+      let randomItem = Math.floor(Math.random() * 19)
+      let path = type === 'movie' ? 'm' : 's'
       axios.get(`https://api.themoviedb.org/3/discover/${type}`,
           {
             params: {
@@ -151,13 +155,20 @@ export default {
               with_genres: genres.join(),
               with_watch_providers: platform.join(),
               with_keywords: keywords.map((keyword => keyword.id)).join(),
-              watch_region: 'FR'
+              watch_region: 'FR',
             }
 
           }).then(response => {
-        this.results = response.data.results
-        this.toggle = this.typeWatch
-        this.loaded = true
+            if (random){
+              this.randomId = response.data.results[randomItem].id
+              this.$router.push({path: `/${path}/${this.randomId}`})
+            }
+            else {
+              this.results = response.data.results
+              this.toggle = this.typeWatch
+              this.loaded = true
+            }
+
       })
     }
   },

@@ -128,7 +128,7 @@ export default {
   methods: {
     getRandom() {
       let randomPage = Math.floor(Math.random() * 30)
-      let randomItem = Math.floor(Math.random() * 19);
+      let randomItem = Math.floor(Math.random() * 19)
       axios.get('https://api.themoviedb.org/3/movie/top_rated', {
         params: {
           api_key: process.env.VUE_APP_API_KEY,
