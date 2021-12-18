@@ -1,5 +1,6 @@
 <template>
   <v-container id="container" fluid>
+    <h1>Search with custom criteria</h1>
     <h2 class="text-h6 mb-2">
       Choose type
     </h2>
@@ -23,7 +24,7 @@
           :key="genre.id"
           :value="genre.id"
       >
-        {{genre.name}}
+        {{ genre.name }}
       </v-chip>
     </v-chip-group>
 
@@ -45,14 +46,48 @@
     </v-chip-group>
 
 
+    <h2 class="text-h6 mb-2">
+      Choose keywords
+    </h2>
+    <v-row>
+      <v-autocomplete
+          filled
+          rounded
+          v-model='selectedKeywords'
+          :search-input.sync='searchKeyword'
+          return-object
+          :items='keyword'
+          item-text='name'
+          item-value='id'
+          multiple
+          chips
+          hide-details
+          hide-no-data
+          no-data-text='Nothing was found!'
+          placeholder='Search Keywords'>
 
+      </v-autocomplete>
+      <v-list rounded v-if="selectedKeywords.length > 0" dense>
+        <v-list-item v-for="(keyword, index) in selectedKeywords" :key="keyword.id">
+          <v-list-item-content>
+            <v-list-item-title class="text-uppercase">{{ keyword.name }}</v-list-item-title>
+          </v-list-item-content>
+          <v-list-item-action>
+            <v-btn icon @click="selectedKeywords.splice(index, 1)">
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
+          </v-list-item-action>
+        </v-list-item>
+      </v-list>
+    </v-row>
 
     <v-row class="mb-8 mt-8" justify="center">
-      <v-btn @click="getResultList(typeWatch,selectedGenres,selectedWatchProviders)">Search</v-btn>
+      <v-btn @click="getResultList(typeWatch,selectedGenres,selectedWatchProviders,selectedKeywords)">Search</v-btn>
     </v-row>
 
 
-    <ResultList v-if="results !== null" :loaded="loaded" :path="path" :results="results" :toggle="toggle" :type="toggle"/>
+    <ResultList v-if="results !== null" :loaded="loaded" :path="path" :results="results" :toggle="toggle"
+                :type="toggle"/>
 
   </v-container>
 </template>
@@ -69,14 +104,14 @@ export default {
     selectedGenres: [],
     watchProvidersList: [],
     selectedWatchProviders: [],
-    selectedKeywords : [],
-    results : [],
-    keywords : [],
+    selectedKeywords: [],
+    results: [],
+    keyword: [],
     loaded: false,
-    path : '',
+    path: '',
     toggle: 'movie',
     typeWatch: "movie",
-    searchKeyword : null
+    searchKeyword: null
   }),
 
   mounted() {
@@ -108,14 +143,15 @@ export default {
         this.watchProvidersList = response.data.results
       })
     },
-    getResultList(type,genres,platform){
+    getResultList(type, genres, platform, keywords) {
       axios.get(`https://api.themoviedb.org/3/discover/${type}`,
           {
             params: {
               api_key: process.env.VUE_APP_API_KEY,
-              with_genres : genres.join(),
-              with_watch_providers : platform.join(),
-              watch_region : 'FR'
+              with_genres: genres.join(),
+              with_watch_providers: platform.join(),
+              with_keywords: keywords.map((keyword => keyword.id)).join(),
+              watch_region: 'FR'
             }
 
           }).then(response => {
@@ -125,19 +161,19 @@ export default {
       })
     }
   },
-  watch : {
+  watch: {
 
-  searchKeyword(keyword){
-    axios.get(`https://api.themoviedb.org/3/search/keyword`, {
-      params : {
-        api_key : process.env.VUE_APP_API_KEY,
-        query : keyword
-      }
-    }).then(response => {
-      this.keywords = response.data.results
-    })
+    searchKeyword(keyword) {
+      axios.get(`https://api.themoviedb.org/3/search/keyword`, {
+        params: {
+          api_key: process.env.VUE_APP_API_KEY,
+          query: keyword
+        }
+      }).then(response => {
+        this.keyword = response.data.results
+      })
 
-  },
+    },
   }
 
 }

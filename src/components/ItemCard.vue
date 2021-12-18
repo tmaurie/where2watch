@@ -2,10 +2,11 @@
 
   <v-hover v-slot:default="{ hover }">
 
-    <v-card flat width="200"  :to='`/${path}/${id}`' :active-class="$vuetify.theme.dark ? 'grey darken-4' : 'grey lighten-3'"
+    <v-card flat width="200" :to='`/${path}/${id}`'
+            :active-class="$vuetify.theme.dark ? 'grey darken-4' : 'grey lighten-3'"
             :color="hover  ? $vuetify.theme.dark ? 'grey darken-4' : 'grey lighten-3' : 'transparent'">
       <v-container fluid class="pa-1">
-        <v-row no-gutters align-content="center" >
+        <v-row no-gutters align-content="center">
           <v-col cols="12">
             <v-card
                 elevation="12"
@@ -25,17 +26,27 @@
                            :color='$vuetify.theme.dark ? "grey darken-4" : "grey lighten-3"'
                            :light='$vuetify.theme.light' :dark='$vuetify.theme.dark'>
 
+                  <v-container fluid>
+
+                    <v-row dense justify="center">
+
+                        <v-icon v-if="path==='m'">mdi-movie-open</v-icon>
+                        <v-icon v-else>mdi-television-classic</v-icon>
+
+                    </v-row>
+                    <v-row dense justify="center">
+
+                        {{title}}
+
+                    </v-row>
+
+                  </v-container>
                 </v-overlay>
+
               </v-img>
             </v-card>
           </v-col>
-          <v-col class="px-1 pt-3" cols="12">
-            <v-list-item class="pa-0">
-              <v-list-item-content class="pa-0">
-                <v-list-item-title class="font-weight-bold text-wrap">{{ title }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-col>
+
 
         </v-row>
 

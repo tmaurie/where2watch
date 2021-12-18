@@ -10,7 +10,7 @@
           v-for="(item, idx) in results"
           :key="idx"
           :id="item.id"
-          :poster="item.poster_path !== null ? item.poster_path : 'src/assets/logo.png' "
+          :poster="item.poster_path"
           :title="type  === 'movie' || item.media_type === 'movie' ? item.title : item.name"
           :path="type  === 'movie' || item.media_type === 'movie' ? 'm' : 's'"
       >
