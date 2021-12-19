@@ -14,7 +14,7 @@ const opts = {
         dark : true,
         themes : {
             light : {
-                primary: colors.deepPurple.accent4,
+                primary: '#0EF6BE',
                 secondary: colors.grey.darken1,
                 accent: colors.shades.black,
                 error: colors.red.accent3,
