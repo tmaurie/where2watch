@@ -1,5 +1,6 @@
 <template>
-  <v-container id="container" fluid>
+  <div >
+    <v-container id="container" fluid>
     <h1>Search with custom criteria</h1>
     <h2 class="text-h6 mb-2">
       Choose type
@@ -86,11 +87,12 @@
       <v-btn class="ma-2" @click="getResultList(typeWatch,selectedGenres,selectedWatchProviders,selectedKeywords, true)">Surprise me !<v-icon>mdi-dice-5</v-icon></v-btn>
     </v-row>
 
+    </v-container>
 
     <ResultList v-if="results !== null" :loaded="loaded" :path="path" :results="results" :toggle="toggle"
                 :type="toggle"/>
+  </div>
 
-  </v-container>
 </template>
 
 <script>
@@ -153,7 +155,7 @@ export default {
             params: {
               api_key: process.env.VUE_APP_API_KEY,
               with_genres: genres.join(),
-              with_watch_providers: platform.join(),
+              with_watch_providers: platform.join('|'),
               with_keywords: keywords.map((keyword => keyword.id)).join(),
               watch_region: 'FR',
             }
