@@ -11,7 +11,7 @@
       </v-btn-toggle>
     </v-row>
     <ResultList :loaded="loaded" :path="path" :results="results" :toggle="toggle" :type="toggle"/>
-    <div class="text-center">
+    <div class="text-center mb-3">
       <v-pagination
           v-model="page"
           :length="info.total_pages <= 500 ? info.total_pages : 500 "
