@@ -8,6 +8,10 @@ v-app {
   --font-color: 18, 18, 18;
 }
 
+.v-overlay--active {
+  backdrop-filter: blur(3px);
+}
+
 path {
   fill: rgb(var(--font-color));
 }
