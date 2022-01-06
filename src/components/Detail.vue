@@ -24,7 +24,50 @@
         <v-col align-self="center">
           <v-row class="align-baseline" no-gutters>
             <h1 class="display-1 font-weight-bold ">{{ itemDetail.name || itemDetail.title }}</h1>
-            <span class="ml-2 font-italic" >({{ itemDetail.original_name || itemDetail.original_title }})</span>
+            <span class="ml-2 mr-2 font-italic">({{ itemDetail.original_name || itemDetail.original_title }})</span>
+            <v-tooltip right>
+              <template v-slot:activator="{ on, attrs }">
+                <v-icon v-bind="attrs"
+                        v-on="on" @click.stop="informationMore = true">mdi-information-outline
+                </v-icon>
+              </template>
+              <span>More information</span>
+            </v-tooltip>
+            <v-dialog
+                v-model="informationMore"
+                max-width="800"
+                scrollable
+            >
+
+              <v-card class="pa-3">
+                <v-simple-table>
+                  <thead>More information</thead>
+                  <tbody>
+
+                  <tr v-if="itemDetail.production_countries.length > 0">
+                    <td class="text-left ">Production
+                      {{ itemDetail.production_countries.length > 1 ? "Countries" : "Country" }}
+                    </td>
+                    <td>
+                      <div class="mx-n1">
+                        <v-chip class="ma-1" pill="pill" v-for="country in itemDetail.production_countries"
+                                :key="country.iso_3166_1">
+                          <v-avatar class="text-uppercase" v-if="$vuetify.breakpoint.mdAndUp" left="left"
+                                    :color="$vuetify.theme.dark ? 'grey darken-1' : 'grey lighten-3'">
+                            {{ country.iso_3166_1 }}
+                          </v-avatar>
+                          {{ country.name }}
+                        </v-chip>
+                      </div>
+                    </td>
+                  </tr>
+
+
+                  </tbody>
+                </v-simple-table>
+              </v-card>
+            </v-dialog>
+
           </v-row>
 
           <p v-if="itemDetail.overview">{{ itemDetail.overview }}</p>
@@ -69,7 +112,7 @@
                        aspect-ratio="1"
                        :lazy-src="`https://image.tmdb.org/t/p/original/${person.profile_path}`"></v-img>
                 <span class="headline"
-                      v-else>{{person.name.split(" ")[0][0]}}{{person.name.split(" ")[1][0]}}</span>
+                      v-else>{{ person.name.split(" ")[0][0] }}{{ person.name.split(" ")[1][0] }}</span>
               </v-avatar>
               <v-avatar class="mx-2"
                         v-if="itemDetail.credits.cast.length - ($vuetify.breakpoint.smAndDown ? 3 : 6) &gt; 0"
@@ -94,11 +137,13 @@
                     link
                 >
                   <v-list-item-avatar>
-                    <v-img v-if="person.profile_path" :src="`https://image.tmdb.org/t/p/original/${person.profile_path}`"
+                    <v-img v-if="person.profile_path"
+                           :src="`https://image.tmdb.org/t/p/original/${person.profile_path}`"
                            aspect-ratio="1"
                            :lazy-src="`https://image.tmdb.org/t/p/original/${person.profile_path}`"></v-img>
                     <v-icon class="headline"
-                          v-else>mdi-account</v-icon>
+                            v-else>mdi-account
+                    </v-icon>
                   </v-list-item-avatar>
 
                   <v-list-item-content>
@@ -140,6 +185,7 @@ export default {
   data() {
     return {
       dialog: false,
+      informationMore: false,
     }
   },
   props: {
@@ -167,3 +213,10 @@ export default {
 
 }
 </script>
+<style>
+tbody tr:hover {
+
+  background-color: transparent !important;
+
+}
+</style>
