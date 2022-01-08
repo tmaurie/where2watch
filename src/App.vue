@@ -21,6 +21,7 @@
 <script>
 
 import AppNavDrawer from "@/components/AppNavDrawer";
+
 export default {
   name: 'App',
   metaInfo: {
