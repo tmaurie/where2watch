@@ -39,11 +39,11 @@
         </v-list-item-content>
 
         <v-list-item-action>
-          <v-icon >mdi-movie-open</v-icon>
+          <v-icon>mdi-movie-open</v-icon>
         </v-list-item-action>
       </v-list-item>
 
-<!--      tvshow -->
+      <!--      tvshow -->
       <v-list-item :to='`/s/${item.id}`' v-if="item.media_type === 'tv'">
         <v-list-item-avatar
             color="indigo"
@@ -52,7 +52,7 @@
           <v-img v-if="item.poster_path"
                  :src="(`https://image.tmdb.org/t/p/w300_and_h450_bestv2${item.poster_path}`)"></v-img>
         </v-list-item-avatar>
-        <v-list-item-content >
+        <v-list-item-content>
           <v-list-item-title v-text="item.original_name"></v-list-item-title>
           <v-list-item-subtitle v-if="item.first_air_date">
             {{
@@ -61,6 +61,23 @@
               })
             }}
           </v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-icon>mdi-television-classic</v-icon>
+        </v-list-item-action>
+      </v-list-item>
+
+<!--      actor-->
+      <v-list-item :to='`/s/${item.id}`' v-if="item.media_type === 'person'">
+        <v-list-item-avatar
+            color="indigo"
+            class="text-h5 font-weight-light white--text"
+        >
+          <v-img v-if="item.profile_path"
+                 :src="(`https://image.tmdb.org/t/p/w300_and_h450_bestv2${item.profile_path}`)"></v-img>
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title v-text="item.name"></v-list-item-title>
         </v-list-item-content>
         <v-list-item-action>
           <v-icon>mdi-television-classic</v-icon>
@@ -114,7 +131,7 @@ export default {
   },
   methods: {
     getItemText(item) {
-      return item.original_title || item.original_name
+      return item.original_title || item.original_name || item.name
     }
   }
 
