@@ -61,7 +61,14 @@
                       </div>
                     </td>
                   </tr>
-
+                  <tr v-if="itemDetail.number_of_seasons">
+                    <td>Number of seasons</td>
+                    <td>{{itemDetail.number_of_seasons}}</td>
+                  </tr>
+                  <tr v-if="itemDetail.number_of_episodes">
+                    <td>Number of episodes</td>
+                    <td>{{itemDetail.number_of_episodes}}</td>
+                  </tr>
 
                   </tbody>
                 </v-simple-table>
