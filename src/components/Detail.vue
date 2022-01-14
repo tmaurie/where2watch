@@ -222,7 +222,7 @@ export default {
   name: 'Detail',
   data() {
     return {
-      HGdialog: false,
+      dialog: false,
       informationMore: false,
       watchTrailer: false,
     }
