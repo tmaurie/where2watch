@@ -12,12 +12,42 @@
         <v-col cols="12" sm="4" v-if="itemDetail.poster_path">
           <v-card elevation="15" rounded="xl">
             <v-img :src="getImgUrl" :lazy-src="getImgUrl" :aspect-ratio="2/3">
-
               <template v-slot:placeholder="">
                 <v-row class="pa-3 ma-0 fill-height" justify="center" align="center">
                   <v-progress-circular indeterminate="indeterminate"></v-progress-circular>
                 </v-row>
               </template>
+
+              <v-row class="pa-3 ma-0 fill-height" justify="center" align="end">
+                <v-tooltip top>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-fab-transition>
+                      <v-btn v-bind="attrs"
+                             v-on="on"
+                             fab
+                             small
+                             @click.stop="watchTrailer = true">
+                        <v-icon>mdi-youtube</v-icon>
+                      </v-btn>
+                    </v-fab-transition>
+                  </template>
+                  <span>Watch trailer</span>
+                </v-tooltip>
+                <v-dialog
+                    v-model="watchTrailer"
+                    max-width="800"
+                    scrollable
+                >
+
+                  <iframe v-if="watchTrailer"
+                          width="720" height="405" :src="`https://www.youtube.com/embed/${itemDetail.videos.results.filter(video => video.type === 'Trailer')[0].key}`"
+                          title="YouTube video player"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowfullscreen>
+                  </iframe>
+
+                </v-dialog>
+              </v-row>
             </v-img>
           </v-card>
         </v-col>
@@ -63,11 +93,11 @@
                   </tr>
                   <tr v-if="itemDetail.number_of_seasons">
                     <td>Number of seasons</td>
-                    <td>{{itemDetail.number_of_seasons}}</td>
+                    <td>{{ itemDetail.number_of_seasons }}</td>
                   </tr>
                   <tr v-if="itemDetail.number_of_episodes">
                     <td>Number of episodes</td>
-                    <td>{{itemDetail.number_of_episodes}}</td>
+                    <td>{{ itemDetail.number_of_episodes }}</td>
                   </tr>
 
                   </tbody>
@@ -183,6 +213,7 @@
         </v-col>
 
       </v-row>
+      <v-divider></v-divider>
     </v-container>
   </v-img>
 </template>
@@ -191,8 +222,9 @@ export default {
   name: 'Detail',
   data() {
     return {
-      dialog: false,
+      HGdialog: false,
       informationMore: false,
+      watchTrailer: false,
     }
   },
   props: {
