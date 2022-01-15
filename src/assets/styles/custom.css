@@ -8,17 +8,18 @@ v-app {
   --font-color: 18, 18, 18;
 }
 
+.theme--dark {
+  --bg-color: 18, 18, 18;
+  --font-color: 255, 255, 255;
+}
+
 .v-overlay--active {
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(10px);
+  background-color: rgba(var(--bg-color), 0.1);
 }
 
 path {
   fill: rgb(var(--font-color));
-}
-
-.theme--dark {
-  --bg-color: 18, 18, 18;
-  --font-color: 255, 255, 255;
 }
 
 /*# sourceMappingURL=custom.css.map */
