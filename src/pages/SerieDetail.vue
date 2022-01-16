@@ -41,7 +41,8 @@ export default {
             params: {
               api_key: API_KEY,
               append_to_response: [
-                'credits'
+                'credits',
+                'videos'
               ].join(','),
             }
           })
