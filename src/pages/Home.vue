@@ -21,7 +21,7 @@
         <SlideShowItem :item="item"/>
       </v-carousel-item>
     </v-carousel>
-    <ResultList :loaded="loaded" :page="page" :path="path" :results="popular.slice(5)"/>
+    <ResultList title="Trending now"  :loaded="loaded" :page="page" :path="path" :results="popular.slice(5)"/>
     <v-footer absolute padless>
       <v-col
           class="text-center"

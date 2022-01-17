@@ -1,6 +1,9 @@
 <template>
   <v-container class="mb-12" id="container" fluid>
 
+    <v-toolbar class="transparent" flat>
+      <v-toolbar-title>{{title}}</v-toolbar-title>
+    </v-toolbar>
     <v-row
         justify="center"
         v-if="loaded"
@@ -31,6 +34,7 @@ export default {
     }
   },
   props: {
+    title : {},
     loaded: {},
     path: {},
     results: {},
