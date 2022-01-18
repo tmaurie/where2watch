@@ -14,15 +14,15 @@ const opts = {
         dark : true,
         themes : {
             light : {
-                primary: '#0EF6BE',
+                primary: '#7289da',
                 secondary: colors.grey.darken1,
                 accent: colors.shades.black,
                 error: colors.red.accent3,
                 // background: colors.indigo.lighten5, // Not automatically applied
             },
             dark: {
-                primary: '#0EF6BE',
-                // background: colors.blueGrey.darken4
+                primary: '#7289da',
+                background: '#1e2124'
             }
         }
     }
