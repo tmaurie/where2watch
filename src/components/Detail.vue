@@ -57,7 +57,7 @@
             <span class="ml-2 mr-2 font-italic">({{ itemDetail.original_name || itemDetail.original_title }})</span>
             <v-tooltip right>
               <template v-slot:activator="{ on, attrs }">
-                <v-icon v-bind="attrs"
+                <v-icon color="primary" v-bind="attrs"
                         v-on="on" @click.stop="informationMore = true">mdi-information-outline
                 </v-icon>
               </template>
