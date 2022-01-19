@@ -3,7 +3,7 @@
 
     <Detail :get-img-url="getImgUrl(movie.poster_path)" :providers="providers" :item-detail="movie"/>
     <v-row no-gutters>
-      <ResultList :loaded="loaded" :page="page" :path="path" type="movie" :results="similarMovies.slice(0,5)"/>
+      <ResultList title="You may like" :loaded="loaded" :page="page" :path="path" type="movie" :results="similarMovies.slice(0,5)"/>
     </v-row>
 
   </v-main>
