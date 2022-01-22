@@ -2,9 +2,11 @@
 
   <v-hover v-slot:default="{ hover }">
 
-    <v-card flat width="200" :to='`/${path}/${id}`'
+    <v-card flat width="200" :to='path !== undefined ? `/${path}/${id}` : ""'
             :active-class="$vuetify.theme.dark ? 'grey darken-4' : 'grey lighten-3'"
-            :color="hover  ? $vuetify.theme.dark ? 'primary' : 'primary' : 'transparent'">
+            :color="hover  ? $vuetify.theme.dark ? 'primary' : 'primary' : 'transparent'"
+
+    >
       <v-container fluid class="pa-1">
         <v-row no-gutters align-content="center">
           <v-col cols="12">
