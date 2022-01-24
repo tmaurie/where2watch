@@ -13,7 +13,8 @@
     "vue": "^2.6.11",
     "vue-meta": "^2.4.0",
     "vue-router": "^3.5.3",
-    "vuetify": "^2.5.10"
+    "vuetify": "^2.5.10",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@mdi/font": "^6.3.95",
