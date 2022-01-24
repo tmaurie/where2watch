@@ -27,6 +27,7 @@ import axios from "axios";
 import ResultList from "@/components/ResultList";
 
 const API_KEY = process.env.VUE_APP_API_KEY
+const BASE_URL = process.env.VUE_APP_BASE_URL
 export default {
 
 
@@ -48,29 +49,26 @@ export default {
     this.getByWatchProvider()
 
   },
-  beforeMount() {
-    this.getRegion()
-  },
+
   methods: {
 
     handlePageChange(value) {
       this.page = value
       this.getByWatchProvider()
     },
-    getRegion() {
-      axios.get("http://ip-api.com/json").then(response => (this.region = response.data.countryCode))
-    },
     getByWatchProvider() {
       const WATCH_PROVIDER_ID = this.$route.params.id
       this.path = this.toggle === 'movie' ? 'm' : 's'
-      axios.get("https://api.themoviedb.org/3/discover/" + this.toggle, {
-        params: {
-          api_key: API_KEY,
-          ...(WATCH_PROVIDER_ID ? {with_watch_providers: WATCH_PROVIDER_ID} : {}),
-          watch_region: this.region,
-          page: this.page
-        },
-      })
+      axios.get(`discover/${this.toggle}`,
+          {
+            baseURL : BASE_URL,
+            params: {
+              api_key: API_KEY,
+              ...(WATCH_PROVIDER_ID ? {with_watch_providers: WATCH_PROVIDER_ID} : {}),
+              watch_region: this.region,
+              page: this.page
+            },
+          })
           .then((response) => {
             this.results = response.data.results
             this.info = response.data
