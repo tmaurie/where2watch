@@ -132,12 +132,20 @@
             </v-chip>
           </div>
           <div class="mx-n1 py-2">
-            <v-chip>
-              <v-icon left>
-                mdi-clock
-              </v-icon>
-              {{ getRuntime(itemDetail.runtime || itemDetail.episode_run_time) }}
-            </v-chip>
+            <v-chip-group>
+              <v-chip>
+                <v-icon left>
+                  mdi-clock
+                </v-icon>
+                {{ getRuntime(itemDetail.runtime || itemDetail.episode_run_time[0]) }}
+              </v-chip>
+              <v-chip>
+                <v-icon left :color="getColor(itemDetail.vote_average * 10 )">
+                  mdi-star-circle
+                </v-icon>
+                {{ itemDetail.vote_average }}
+              </v-chip>
+            </v-chip-group>
           </div>
           <v-btn class="mt-6" height="100" text="text"
                  :block="$vuetify.breakpoint.smAndDown" @click.stop="dialog = true">
@@ -203,12 +211,12 @@
               {{ provider.provider_name }}
             </v-chip>
           </v-chip-group>
-          <v-progress-circular
-              size="50"
-              :value="itemDetail.vote_average*10"
-              :color="getColor(itemDetail.vote_average*10)"
-          >{{ itemDetail.vote_average * 10 }}
-          </v-progress-circular>
+          <!--          <v-progress-circular-->
+          <!--              size="50"-->
+          <!--              :value="itemDetail.vote_average*10"-->
+          <!--              :color="getColor(itemDetail.vote_average*10)"-->
+          <!--          >{{ itemDetail.vote_average * 10 }}-->
+          <!--          </v-progress-circular>-->
 
         </v-col>
 
