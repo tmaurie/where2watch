@@ -14,7 +14,7 @@ v-app {
 }
 
 .v-overlay--active {
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(2px);
   background-color: rgba(var(--bg-color), 0.1);
 }
 

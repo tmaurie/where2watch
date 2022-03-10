@@ -11,7 +11,7 @@
       flat
       solo
       :item-text="getItemText"
-      item-value="API"
+      :filter="customFilter"
       label="Search"
       placeholder="Start typing to Search"
       prepend-inner-icon="mdi-magnify"
@@ -67,7 +67,7 @@
         </v-list-item-action>
       </v-list-item>
 
-<!--      actor-->
+      <!--      actor-->
       <v-list-item :to='`/s/${item.id}`' v-if="item.media_type === 'person'">
         <v-list-item-avatar
             color="indigo"
@@ -93,8 +93,6 @@
 
 import axios from "axios";
 
-const API_KEY = process.env.VUE_APP_API_KEY
-
 export default {
 
   name: "SearchBox",
@@ -113,10 +111,11 @@ export default {
       this.isLoading = true
 
       if (input != null && input.length > 0) {
-        axios.get(`https://api.themoviedb.org/3/search/multi?query=${input}`,
+        axios.get(`https://api.themoviedb.org/3/search/multi`,
             {
               params: {
-                api_key: API_KEY
+                api_key: process.env.VUE_APP_API_KEY,
+                query: input
               }
             })
             .then((response) => {
@@ -130,8 +129,22 @@ export default {
     },
   },
   methods: {
+    customFilter(item, queryText) {
+      const textOne = item.name
+      const textTwo = item.title
+      const textThree = item.original_name
+      const textFour = item.original_title
+      const searchText = queryText
+
+      return (textOne !== undefined ? textOne.toLowerCase().indexOf(searchText.toLowerCase()) > -1 : "") ||
+          (textTwo !== undefined ? textTwo.toLowerCase().indexOf(searchText.toLowerCase()) > -1 : "") ||
+          (textThree !== undefined ? textThree.toLowerCase().indexOf(searchText.toLowerCase()) > -1 : "") ||
+          (textFour !== undefined ? textFour.toLowerCase().indexOf(searchText.toLowerCase()) > -1 : "")
+    },
     getItemText(item) {
-      return item.original_title || item.original_name || item.name
+      return item.name || item.title || item.original_name || item.original_title
+      // return  `${item.name} ${item.original_name}`
+
     }
   }
 
