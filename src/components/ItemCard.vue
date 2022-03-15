@@ -20,8 +20,8 @@
                   :src="('https://image.tmdb.org/t/p/w200' +poster)"
               >
                 <template v-slot:placeholder>
-                  <v-row class="pa-3 ma-0 fill-height" justify="start" align="start">
-                    <v-progress-circular indeterminate="indeterminate"></v-progress-circular>
+                  <v-row class="pa-3 ma-0 fill-height" justify="center" align="center">
+                    <v-progress-circular indeterminate></v-progress-circular>
                   </v-row>
                 </template>
                 <v-overlay :value='hover' absolute opacity='.75'
