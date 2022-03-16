@@ -3,11 +3,9 @@
       :items="items"
       :loading="isLoading"
       :search-input.sync="searchResults"
-      class="mx-4"
       hide-no-data
       hide-details
-      cache-items
-      clearable
+
       flat
       solo
       :item-text="getItemText"
@@ -15,7 +13,6 @@
       label="Search"
       placeholder="Start typing to Search"
       prepend-inner-icon="mdi-magnify"
-      return-object
   >
     <template v-slot:item="{ item }">
 

@@ -1,11 +1,14 @@
 <template>
   <div>
-    <v-row justify="center" class="mb-2 mt-4" no-gutters>
-      <v-btn-toggle v-model="toggle" shaped color="primary" @change="getByWatchProvider">
-        <v-btn value="movie">
+    <v-row justify="center" class=" mt-4">
+      <v-btn-toggle v-model="toggle"
+                    @change="getByWatchProvider"
+                    group
+      >
+        <v-btn class="rounded-lg" value="movie">
           <v-icon>mdi-movie-open</v-icon> &nbsp; Movies
         </v-btn>
-        <v-btn value="tv">Series &nbsp;
+        <v-btn class="rounded-lg" value="tv">Series &nbsp;
           <v-icon>mdi-television-classic</v-icon>
         </v-btn>
       </v-btn-toggle>
@@ -61,7 +64,7 @@ export default {
       this.path = this.toggle === 'movie' ? 'm' : 's'
       axios.get(`discover/${this.toggle}`,
           {
-            baseURL : BASE_URL,
+            baseURL: BASE_URL,
             params: {
               api_key: API_KEY,
               ...(WATCH_PROVIDER_ID ? {with_watch_providers: WATCH_PROVIDER_ID} : {}),

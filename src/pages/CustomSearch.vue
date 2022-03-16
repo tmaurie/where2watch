@@ -29,9 +29,9 @@
         </v-chip>
       </v-chip-group>
 
-      <h2 class="text-h6 mb-2">
+      <h3 class="mb-2">
         Choose Platform
-      </h2>
+      </h3>
       <v-chip-group
           v-model="selectedWatchProviders"
           multiple
@@ -47,10 +47,10 @@
       </v-chip-group>
 
 
-      <h2 class="text-h6 mb-2">
+      <h3 class="mb-2">
         Choose keywords
-      </h2>
-      <v-row>
+      </h3>
+      <v-row no-gutters>
         <v-autocomplete
             filled
             rounded
@@ -83,10 +83,10 @@
       </v-row>
 
       <v-row class="mb-8 mt-8" justify="center">
-        <v-btn class="ma-2"
+        <v-btn rounded color="primary" class="ma-2"
                @click="getResultList(typeWatch,selectedGenres,selectedWatchProviders,selectedKeywords, false)">Search
         </v-btn>
-        <v-btn class="ma-2"
+        <v-btn rounded color="primary" outlined class="ma-2"
                @click="getResultList(typeWatch,selectedGenres,selectedWatchProviders,selectedKeywords, true)">Surprise
           me !
           <v-icon>mdi-dice-5</v-icon>
@@ -97,6 +97,14 @@
 
     <ResultList v-if="results !== null" :loaded="loaded" :path="path" :results="results" :toggle="toggle"
                 :type="toggle"/>
+<!--    <div class="text-center">
+      <v-pagination
+          v-model="page"
+          :length="info.total_pages <= 500 ? info.total_pages : 500 "
+          total-visible="6"
+          @input="handlePageChange"
+      ></v-pagination>
+    </div>-->
   </div>
 
 </template>
@@ -116,6 +124,7 @@ export default {
     selectedKeywords: [],
     results: [],
     keyword: [],
+    info: [],
     loaded: false,
     path: '',
     toggle: 'movie',
@@ -165,6 +174,7 @@ export default {
               with_watch_providers: platform.join('|'),
               with_keywords: keywords.map((keyword => keyword.id)).join(),
               watch_region: 'FR',
+              page: this.page
             }
 
           }).then(response => {

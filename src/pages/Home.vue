@@ -5,7 +5,6 @@
         v-if="loaded"
         height="auto"
         width="auto"
-
         vertical
         vertical-delimiters=""
         hide-delimiter-background
@@ -21,8 +20,8 @@
         <SlideShowItem :item="item"/>
       </v-carousel-item>
     </v-carousel>
-    <ResultList title="Trending now"  :loaded="loaded" :page="page" :path="path" :results="popular.slice(5)"/>
-    <v-footer absolute padless>
+    <ResultList title="Trending now" :loaded="loaded" :page="page" :path="path" :results="popular.slice(5)"/>
+    <v-footer padless>
       <v-col
           class="text-center"
           cols="12"
@@ -76,7 +75,6 @@ export default {
         params: {
           api_key: API_KEY,
           page: 1
-
         }
       }).then((response) => {
         this.popular = response.data.results

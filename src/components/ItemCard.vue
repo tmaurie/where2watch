@@ -36,7 +36,7 @@
                       <v-icon v-else>mdi-television-classic</v-icon>
 
                     </v-row>
-                    <v-row dense justify="center" > {{ title }}</v-row>
+                    <v-row dense justify="center" class="text-center"> {{ title }}</v-row>
 
                   </v-container>
                 </v-overlay>
