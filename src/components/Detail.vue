@@ -4,7 +4,7 @@
          gradient="to top, rgba(var(--bg-color),1) 15%, rgba(var(--bg-color),.7) 100%">
     <template v-slot:placeholder="">
       <v-row class="pa-3 ma-0 fill-height" justify="end" align="start">
-        <v-progress-circular indeterminate="indeterminate" style="opacity: .25"></v-progress-circular>
+        <v-progress-circular indeterminate style="opacity: .25"></v-progress-circular>
       </v-row>
     </template>
     <v-container class="py-12" :class="$vuetify.breakpoint.xsOnly">
@@ -21,15 +21,13 @@
               <v-row class="pa-3 ma-0 fill-height" justify="center" align="end">
                 <v-tooltip top>
                   <template v-slot:activator="{ on, attrs }">
-                    <v-fab-transition>
-                      <v-btn v-bind="attrs"
-                             v-on="on"
-                             fab
-                             small
-                             @click.stop="watchTrailer = true">
-                        <v-icon>mdi-youtube</v-icon>
-                      </v-btn>
-                    </v-fab-transition>
+                    <v-btn v-bind="attrs"
+                           v-on="on"
+                           fab
+                           color="red"
+                           @click.stop="watchTrailer = true">
+                      <v-icon>mdi-youtube</v-icon>
+                    </v-btn>
                   </template>
                   <span>Watch trailer</span>
                 </v-tooltip>
@@ -38,9 +36,9 @@
                     max-width="800"
                     scrollable
                 >
-
                   <iframe v-if="watchTrailer"
-                          width="720" height="405" :src="`https://www.youtube.com/embed/${itemDetail.videos.results.filter(video => video.type === 'Trailer')[0].key}`"
+                          width="720" height="405"
+                          :src="`https://www.youtube.com/embed/${itemDetail.videos.results.filter(video => video.type === 'Trailer')[0].key}`"
                           title="YouTube video player"
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowfullscreen>
@@ -180,6 +178,7 @@
                     v-for="person in itemDetail.credits.cast"
                     :key="person.credit_id"
                     link
+                    :to='`/c/${person.id}`'
                 >
                   <v-list-item-avatar>
                     <v-img v-if="person.profile_path"
