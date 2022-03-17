@@ -103,6 +103,7 @@
       <SearchBox/>
       <v-spacer></v-spacer>
 
+      <LoginComponent />
       <v-btn icon @click="$vuetify.theme.dark = !$vuetify.theme.dark">
         <v-icon>
           {{ $vuetify.theme.dark ? "mdi-white-balance-sunny" : "mdi-brightness-3" }}
@@ -116,8 +117,10 @@
 <script>
 import SearchBox from "@/components/SearchBox";
 import axios from "axios";
+import LoginComponent from "@/components/LoginComponent";
+
 export default {
-  components: {SearchBox},
+  components: {LoginComponent, SearchBox},
   data: () => ({
     drawer: false,
     selectedItem: 0,

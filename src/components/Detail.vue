@@ -50,8 +50,49 @@
           </v-card>
         </v-col>
         <v-col align-self="center">
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                  v-bind="attrs"
+                  v-on="on"
+                  fab
+                  :loading="loading_watchlist"
+                  :disabled="loading_watchlist"
+                  @click="watchlistAction(!inWatchlist)"
+              >
+                <v-icon v-if="inWatchlist" color="primary">
+                  mdi-bookmark
+                </v-icon>
+                <v-icon v-else color="primary">
+                  mdi-bookmark-outline
+                </v-icon>
+              </v-btn>
+            </template>
+            <span v-text="inWatchlist ? 'Remove from watchlist' : 'Add to watchlist'"></span>
+          </v-tooltip>
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                  v-bind="attrs"
+                  v-on="on"
+                  class="ma-2"
+                  fab
+                  :loading="loading_favorite"
+                  :disabled="loading_favorite"
+                  @click="favoriteAction(!inFavorites)"
+              >
+                <v-icon v-if="inFavorites" color="primary">
+                  mdi-heart
+                </v-icon>
+                <v-icon v-else color="primary">
+                  mdi-heart-outline
+                </v-icon>
+              </v-btn>
+            </template>
+            <span v-text="inFavorites ? 'Remove from favorites' : 'Add to favorites'"></span>
+          </v-tooltip>
           <v-row class="align-baseline" no-gutters>
-            <h1 class="display-1 font-weight-bold ">{{ itemDetail.name || itemDetail.title }}</h1>
+            <h1 class="">{{ itemDetail.name || itemDetail.title }}</h1>
             <span class="ml-2 mr-2 font-italic">({{ itemDetail.original_name || itemDetail.original_title }})</span>
             <v-tooltip right>
               <template v-slot:activator="{ on, attrs }">
@@ -124,26 +165,24 @@
             <h2 class="subtitle-1 font-weight-light" v-else>(N/A)</h2>
           </div>
           <div class="mx-n1 py-2">
-            <v-chip class="ma-1" v-for="genre in itemDetail.genres" :key="genre.id"
+            <v-chip outlined class="ma-1" v-for="genre in itemDetail.genres" :key="genre.id"
                     :small="$vuetify.breakpoint.smAndDown"
-                    outlined="outlined" nuxt="nuxt">{{ genre.name }}
+            >{{ genre.name }}
             </v-chip>
           </div>
           <div class="mx-n1 py-2">
-            <v-chip-group>
-              <v-chip>
+              <v-chip class="ma-1">
                 <v-icon left>
                   mdi-clock
                 </v-icon>
                 {{ getRuntime(itemDetail.runtime || itemDetail.episode_run_time[0]) }}
               </v-chip>
-              <v-chip>
+            <v-chip class="ma-1">
                 <v-icon left :color="getColor(itemDetail.vote_average * 10 )">
                   mdi-star-circle
                 </v-icon>
                 {{ itemDetail.vote_average }}
               </v-chip>
-            </v-chip-group>
           </div>
           <v-btn class="mt-6" height="100" text="text"
                  :block="$vuetify.breakpoint.smAndDown" @click.stop="dialog = true">
@@ -225,6 +264,8 @@
   </v-img>
 </template>
 <script>
+import axios from "axios";
+
 export default {
   name: 'Detail',
   data() {
@@ -232,12 +273,17 @@ export default {
       dialog: false,
       informationMore: false,
       watchTrailer: false,
+      inWatchlist: this.itemDetail.account_states.watchlist,
+      inFavorites: this.itemDetail.account_states.favorite,
+      loading_watchlist: false,
+      loading_favorite: false,
     }
   },
   props: {
     getImgUrl: {},
     providers: {},
-    itemDetail: {}
+    itemDetail: {},
+    media_type: null
   },
   methods: {
     getColor(vote) {
@@ -254,6 +300,64 @@ export default {
       let hours = Math.floor(time / 60);
       let minutes = time % 60 < 10 ? ("0" + time % 60) : time % 60;
       return hours + " h " + minutes
+    },
+    watchlistAction(action) {
+      this.loading_watchlist = true
+      const account_id = localStorage.getItem('account_id')
+      const headers = {
+        'Content-Type': 'application/json'
+      }
+      axios
+          .post(
+              `https://api.themoviedb.org/3/account/${account_id}/watchlist`, {
+                "media_type": this.media_type,
+                "media_id": this.itemDetail.id,
+                "watchlist": action
+              }, {
+                headers: headers,
+                params: {
+                  api_key: process.env.VUE_APP_API_KEY,
+                  session_id: localStorage.getItem('session_id')
+                }
+              },
+          )
+          .then(response => {
+            this.inWatchlist = !this.inWatchlist
+            this.loading_watchlist = false
+            console.log(response)
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+    },
+    favoriteAction(action) {
+      this.loading_favorite = true
+      const account_id = localStorage.getItem('account_id')
+      const headers = {
+        'Content-Type': 'application/json'
+      }
+      axios
+          .post(
+              `https://api.themoviedb.org/3/account/${account_id}/favorite`, {
+                "media_type": this.media_type,
+                "media_id": this.itemDetail.id,
+                "favorite": action
+              }, {
+                headers: headers,
+                params: {
+                  api_key: process.env.VUE_APP_API_KEY,
+                  session_id: localStorage.getItem('session_id')
+                }
+              },
+          )
+          .then(response => {
+            this.inFavorites = !this.inFavorites
+            this.loading_favorite = false
+            console.log(response)
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
     }
   }
 

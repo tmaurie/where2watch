@@ -1,9 +1,10 @@
 <template>
   <v-main class="pa-0" v-if="loaded">
 
-    <Detail :get-img-url="getImgUrl(movie.poster_path)" :providers="providers" :item-detail="movie"/>
+    <Detail :get-img-url="getImgUrl(movie.poster_path)" :providers="providers" :item-detail="movie" media_type="movie"/>
     <v-row no-gutters>
-      <ResultList title="You may like" :loaded="loaded" :page="page" :path="path" type="movie" :results="similarMovies.slice(0,5)"/>
+      <ResultList title="You may like" :loaded="loaded" :page="page" :path="path" type="movie"
+                  :results="similarMovies.slice(0,5)"/>
     </v-row>
 
   </v-main>
@@ -41,9 +42,11 @@ export default {
           {
             params: {
               api_key: API_KEY,
+              session_id : localStorage.getItem('session_id'),
               append_to_response: [
                 'credits',
-                'videos'
+                'videos',
+                'account_states'
               ].join(','),
             }
           })

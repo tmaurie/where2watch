@@ -1,9 +1,38 @@
 <template>
   <v-main class="pa-0" v-if="loaded">
-    <Detail :get-img-url="getImgUrl(serie.poster_path)" :providers="providers" :item-detail="serie"/>
+    <Detail :get-img-url="getImgUrl(serie.poster_path)" :providers="providers" :item-detail="serie" media_type="tv"/>
+
+    <v-container class="mb-12" id="container" fluid>
+
+      <v-toolbar class="transparent" flat>
+        <v-toolbar-title>Seasons</v-toolbar-title>
+      </v-toolbar>
+      <v-row class="mb-16" no-gutters justify="center">
+
+        <ItemCard
+            @click.stop="season = true"
+            v-for="(item, idx) in seasons"
+            :key="idx"
+            :id="item.id"
+            :poster="item.poster_path"
+            :title="item.name"
+        >
+        </ItemCard>
+        <v-dialog
+            v-model="season">
+          <v-card>
+            test
+          </v-card>
+        </v-dialog>
+      </v-row>
+
+    </v-container>
+
     <v-row no-gutters>
-      <ResultList :loaded="loaded" :page="page" :path="path" type="tv" :results="similarShows.slice(0,5)"/>
+
+      <ResultList title="You may like" :loaded="loaded" :page="page" :path="path" type="tv" :results="similarShows.slice(0,5)"/>
     </v-row>
+
   </v-main>
 </template>
 
@@ -11,23 +40,25 @@
 import axios from "axios";
 import Detail from "@/components/Detail";
 import ResultList from "@/components/ResultList";
+import ItemCard from "@/components/ItemCard";
 
-const imageapi = 'https://source.unsplash.com/random'
 const API_KEY = process.env.VUE_APP_API_KEY
 
 export default {
   name: "ItemDetail",
-  components: {ResultList, Detail},
+  components: {ItemCard, ResultList, Detail},
   data() {
     return {
       colors: [],
-      image: imageapi,
       serie: null,
       loaded: false,
-      similarShows : [],
+      similarShows: [],
       providers: [],
+      seasons: [],
+      videos: [],
       page: '1',
-      path: ''
+      path: '',
+      season: false
     }
   },
   methods: {
@@ -40,14 +71,18 @@ export default {
           {
             params: {
               api_key: API_KEY,
+              session_id : localStorage.getItem('session_id'),
               append_to_response: [
                 'credits',
-                'videos'
+                'videos',
+                'account_states'
               ].join(','),
             }
           })
           .then((response) => {
             this.serie = response.data
+            this.videos = response.data.videos.results.filter(video => video.type === 'Trailer')
+            this.seasons = response.data.seasons
             this.loaded = true
             // console.log(response)
           })
@@ -61,7 +96,6 @@ export default {
           .then((response) => {
             this.providers = response.data.results.FR.flatrate
             this.loaded = true
-            // console.log(response)
           })
           .finally(() => (this.loaded = true))
     },

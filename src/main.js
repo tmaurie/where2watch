@@ -10,6 +10,7 @@ import SerieDetail from "@/pages/SerieDetail";
 import VueMeta from "vue-meta";
 import CustomSearch from "@/pages/CustomSearch";
 import CastDetail from "@/pages/CastDetail";
+import Watchlist from "@/pages/Watchlist";
 
 Vue.config.productionTip = false
 Vue.use(VueRouter);
@@ -24,7 +25,8 @@ const router = new VueRouter({
         {path: '/m/:id', component: MovieDetail},
         {path: '/s/:id', component: SerieDetail},
         {path: '/search', component: CustomSearch},
-        {path: '/c/:id', component: CastDetail}
+        {path: '/c/:id', component: CastDetail},
+        {path: '/wl/:id', component: Watchlist}
     ]
 });
 
