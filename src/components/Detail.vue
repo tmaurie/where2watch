@@ -25,6 +25,7 @@
                            v-on="on"
                            fab
                            color="red"
+                           dark
                            @click.stop="watchTrailer = true">
                       <v-icon>mdi-youtube</v-icon>
                     </v-btn>
@@ -171,18 +172,18 @@
             </v-chip>
           </div>
           <div class="mx-n1 py-2">
-              <v-chip class="ma-1">
-                <v-icon left>
-                  mdi-clock
-                </v-icon>
-                {{ getRuntime(itemDetail.runtime || itemDetail.episode_run_time[0]) }}
-              </v-chip>
             <v-chip class="ma-1">
-                <v-icon left :color="getColor(itemDetail.vote_average * 10 )">
-                  mdi-star-circle
-                </v-icon>
-                {{ itemDetail.vote_average }}
-              </v-chip>
+              <v-icon left>
+                mdi-clock
+              </v-icon>
+              {{ getRuntime(itemDetail.runtime || itemDetail.episode_run_time[0]) }}
+            </v-chip>
+            <v-chip class="ma-1">
+              <v-icon left :color="getColor(itemDetail.vote_average * 10 )">
+                mdi-star-circle
+              </v-icon>
+              {{ itemDetail.vote_average }}
+            </v-chip>
           </div>
           <v-btn class="mt-6" height="100" text="text"
                  :block="$vuetify.breakpoint.smAndDown" @click.stop="dialog = true">
@@ -242,20 +243,13 @@
             </v-card>
           </v-dialog>
           <v-chip-group>
-            <v-chip v-for="provider in providers" :key="provider.provider_id">
+            <v-chip  v-for="provider in providers" :key="provider.provider_id" link :to='`/w/${provider.provider_id}`'>
               <v-avatar left>
                 <v-img :src="`https://image.tmdb.org/t/p/original/${provider.logo_path}`"></v-img>
               </v-avatar>
               {{ provider.provider_name }}
             </v-chip>
           </v-chip-group>
-          <!--          <v-progress-circular-->
-          <!--              size="50"-->
-          <!--              :value="itemDetail.vote_average*10"-->
-          <!--              :color="getColor(itemDetail.vote_average*10)"-->
-          <!--          >{{ itemDetail.vote_average * 10 }}-->
-          <!--          </v-progress-circular>-->
-
         </v-col>
 
       </v-row>
