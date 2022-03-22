@@ -9,17 +9,16 @@
         transition="scale-transition"
     >
       <template v-slot:activator="{ on }">
-        <v-chip
+        <v-btn
             color="primary"
             v-on="on"
+            class="rounded-lg"
         >
           {{ userData.username }}
-          <v-avatar right>
-            <v-icon>mdi-menu</v-icon>
-          </v-avatar>
-        </v-chip>
+            <v-icon right>mdi-menu</v-icon>
+        </v-btn>
       </template>
-      <v-list rounded>
+      <v-list width="250" rounded>
         <v-list-item :to="`/wl/${userData.id}`">
           <v-icon left>mdi-bookmark</v-icon>
           My watchlist
@@ -119,7 +118,6 @@ export default {
               }
           )
           .then(response => {
-            console.log(response)
             this.sessionID = response.data.session_id
             localStorage.setItem('session_id', this.sessionID)
             this.getUserData()
