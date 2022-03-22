@@ -2,6 +2,8 @@
   <div>
     <v-navigation-drawer
         app
+        color="primary"
+        dark
         floating
         class="rounded-lg"
         :class='{ "my-4": $vuetify.breakpoint.mdAndUp, "my-2": $vuetify.breakpoint.smAndDown, "mx-4": $vuetify.breakpoint.mdAndUp && drawer, "mx-2": $vuetify.breakpoint.smAndDown && drawer }'
@@ -11,24 +13,15 @@
         :height='`calc(100vh - ${$vuetify.breakpoint.smAndDown ? "16" : "32"}px)`'
         temporary
     >
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="text-h6">
-            Where2Watch
-          </v-list-item-title>
-          <v-list-item-subtitle>
-            Menu
-          </v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item to="/">
-        <v-list-item-icon>
-          <v-icon>mdi-home</v-icon>
-        </v-list-item-icon>
+      <v-list dark nav>
 
-        <v-list-item-title>Home</v-list-item-title>
-      </v-list-item>
-      <v-list nav>
+        <v-list-item to="/">
+          <v-list-item-icon>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-title>Home</v-list-item-title>
+        </v-list-item>
 
 
         <v-list-item
@@ -43,7 +36,7 @@
             :value="false"
             prepend-icon="mdi-television-play"
             no-action
-
+            class="text--primary"
         >
           <template v-slot:activator>
             <v-list-item-title>Platforms</v-list-item-title>
@@ -77,7 +70,7 @@
 
       <template v-slot:append>
         <div class="pa-2">
-          <v-btn block href="https://github.com/tmaurie/hello-where2watch" target="_blank">
+          <v-btn block light href="https://github.com/tmaurie/hello-where2watch" target="_blank">
             <v-icon>mdi-github</v-icon>
             Github
           </v-btn>
@@ -103,7 +96,7 @@
       <SearchBox/>
       <v-spacer></v-spacer>
 
-      <LoginComponent />
+      <LoginComponent/>
       <v-btn icon @click="$vuetify.theme.dark = !$vuetify.theme.dark">
         <v-icon>
           {{ $vuetify.theme.dark ? "mdi-white-balance-sunny" : "mdi-brightness-3" }}
