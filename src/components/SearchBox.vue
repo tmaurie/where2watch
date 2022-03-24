@@ -5,7 +5,6 @@
       :search-input.sync="searchResults"
       hide-no-data
       hide-details
-
       flat
       solo
       :item-text="getItemText"

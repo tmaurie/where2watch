@@ -14,7 +14,7 @@
         </v-btn>
       </v-btn-toggle>
     </v-row>
-    <ResultList  :loaded="loaded" :page="page" type="movie" :results="results"/>
+    <ResultList :path="path" :loaded="loaded" :page="page" :type="toggle" :results="results"/>
   </div>
 
 </template>
@@ -32,7 +32,7 @@ export default {
       results: {},
       info: {},
       page: 1,
-      path: 'm',
+      path: '',
       toggle: 'movies',
       loaded: false
     }
@@ -42,6 +42,7 @@ export default {
   },
   methods: {
     getUserWatchlist() {
+      this.path = this.toggle === 'movies' ? 'm' : 's'
       axios.get(`account/${this.$route.params.id}/watchlist/${this.toggle}`, {
         baseURL: process.env.VUE_APP_BASE_URL,
         params: {

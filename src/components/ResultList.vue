@@ -1,5 +1,5 @@
 <template>
-  <v-container class="mb-12" id="container" fluid>
+  <v-container v-show="results.length > 0" class="mb-12" id="container" fluid>
 
     <v-row justify="center" no-gutters >
       <h2>{{title}}</h2>
@@ -8,14 +8,13 @@
         justify="center"
         v-if="loaded"
     >
-
       <ItemCard
           v-for="(item, idx) in results"
           :key="idx"
           :id="item.id"
           :poster="item.poster_path"
-          :title="type  === 'movie' || item.media_type === 'movie' ? item.title : item.name"
-          :path="type  === 'movie' || item.media_type === 'movie' ? 'm' : 's'"
+          :title="['movie','movies'].includes(type) ||  item.media_type === 'movie' ? item.title : item.name"
+          :path="['movie','movies'].includes(type) ||  item.media_type === 'movie' ? 'm' : 's'"
       >
       </ItemCard>
     </v-row>
