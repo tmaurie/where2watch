@@ -93,11 +93,11 @@
             <span v-text="inFavorites ? 'Remove from favorites' : 'Add to favorites'"></span>
           </v-tooltip>
           <v-row class="align-baseline" no-gutters>
-            <h1 class="">{{ itemDetail.name || itemDetail.title }}</h1>
-            <span class="ml-2 mr-2 font-italic">({{ itemDetail.original_name || itemDetail.original_title }})</span>
+            <h1 >{{ itemDetail.name || itemDetail.title }}</h1>
+            <span v-if="(itemDetail.name !== itemDetail.original_name) || (itemDetail.title !== itemDetail.original_title)" class="ml-2 mr-2 font-italic">({{ itemDetail.original_name || itemDetail.original_title }})</span>
             <v-tooltip right>
               <template v-slot:activator="{ on, attrs }">
-                <v-icon color="primary" v-bind="attrs"
+                <v-icon class="ml-2" color="primary" v-bind="attrs"
                         v-on="on" @click.stop="informationMore = true">mdi-information-outline
                 </v-icon>
               </template>
@@ -110,8 +110,9 @@
             >
 
               <v-card class="pa-3">
+                <v-card-title class="primary--text">More information</v-card-title>
                 <v-simple-table>
-                  <thead>More information</thead>
+
                   <tbody>
 
                   <tr v-if="itemDetail.production_countries.length > 0">
