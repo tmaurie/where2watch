@@ -95,7 +95,7 @@
 
     </v-container>
 
-    <ResultList v-if="results !== null" :loaded="loaded" :path="path" :results="results" :toggle="toggle"
+    <ResultList v-if="results.length > 0" :loaded="loaded" :path="path" :results="results" :toggle="toggle"
                 :type="toggle"/>
 <!--    <div class="text-center">
       <v-pagination

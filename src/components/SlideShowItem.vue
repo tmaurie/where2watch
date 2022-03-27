@@ -52,7 +52,7 @@ export default {
         }
       }).then((response) => {
         let logoFp = response.data.logos[0].file_path
-        this.logo =  `https://image.tmdb.org/t/p/original${logoFp}`
+        this.logo =  `https://image.tmdb.org/t/p/w400${logoFp}`
       }).finally(() => (this.loaded = true))
     },
   }
