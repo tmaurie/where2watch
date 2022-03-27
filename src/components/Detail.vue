@@ -148,7 +148,7 @@
 
           </v-row>
 
-          <p v-if="itemDetail.overview">{{ itemDetail.overview }}</p>
+          <p class="text-justify" v-if="itemDetail.overview">{{ itemDetail.overview }}</p>
           <div class="d-block">
             <h2 class="subtitle-1 d-inline" v-if="itemDetail.first_air_date"><span class="font-weight-bold">{{
                 new Date(itemDetail.first_air_date).toLocaleDateString("en-US", {
