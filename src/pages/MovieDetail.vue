@@ -1,7 +1,7 @@
 <template>
   <v-main class="pa-0" v-if="loaded">
 
-    <Detail :get-img-url="getImgUrl(movie.poster_path)" :providers="providers" :item-detail="movie" media_type="movie"/>
+    <Detail  :providers="providers" :item-detail="movie" media_type="movie"/>
     <v-row no-gutters>
       <ResultList title="You may like" :loaded="loaded" :page="page" :path="path" type="movie"
                   :results="similarMovies.slice(0,5)"/>

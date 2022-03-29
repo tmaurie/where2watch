@@ -1,5 +1,6 @@
 <template>
-  <v-img class="v-img--blurred" id="hero" :aspect-ratio="10"
+  <v-img class="v-img--blurred" id="hero" :aspect-ratio="10" v-if="itemDetail"
+         :lazy-src="`https://image.tmdb.org/t/p/original/${itemDetail.backdrop_path}`"
          :src="`https://image.tmdb.org/t/p/original/${itemDetail.backdrop_path}`"
          gradient="to top, rgba(var(--bg-color),1) 15%, rgba(var(--bg-color),.7) 100%">
     <template v-slot:placeholder="">
@@ -11,7 +12,8 @@
       <v-row class="py-6" align="center" justify="center">
         <v-col cols="12" sm="4" v-if="itemDetail.poster_path">
           <v-card elevation="15" rounded="xl">
-            <v-img :src="getImgUrl" :lazy-src="getImgUrl" :aspect-ratio="2/3">
+            <v-img :src="`https://image.tmdb.org/t/p/original/${itemDetail.poster_path}`"
+                   :lazy-src="`https://image.tmdb.org/t/p/original/${itemDetail.poster_path}`" :aspect-ratio="2/3">
               <template v-slot:placeholder="">
                 <v-row class="pa-3 ma-0 fill-height" justify="center" align="center">
                   <v-progress-circular indeterminate="indeterminate"></v-progress-circular>

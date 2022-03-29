@@ -1,6 +1,6 @@
 <template>
   <v-main class="pa-0" v-if="loaded">
-    <Detail :get-img-url="getImgUrl(serie.poster_path)" :providers="providers" :item-detail="serie" media_type="tv"/>
+    <Detail  :providers="providers" :item-detail="serie" media_type="tv"/>
 
     <v-container class="mb-12" id="container" fluid>
 
