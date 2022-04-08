@@ -15,6 +15,16 @@
       </v-btn-toggle>
     </v-row>
     <ResultList :path="path" :loaded="loaded" :page="page" :type="toggle" :results="results"/>
+    <div class="text-center mb-3">
+      <v-pagination
+          v-if="info.total_pages > 1"
+          v-model="page"
+          :length="info.total_pages <= 500 ? info.total_pages : 500 "
+          total-visible="6"
+          @input="handlePageChange"
+      ></v-pagination>
+    </div>
+
   </div>
 
 </template>
@@ -41,13 +51,18 @@ export default {
     this.getUserWatchlist()
   },
   methods: {
+    handlePageChange(value) {
+      this.page = value
+      this.getUserWatchlist()
+    },
     getUserWatchlist() {
       this.path = this.toggle === 'movies' ? 'm' : 's'
       axios.get(`account/${this.$route.params.id}/watchlist/${this.toggle}`, {
         baseURL: process.env.VUE_APP_BASE_URL,
         params: {
           api_key: process.env.VUE_APP_API_KEY,
-          session_id: this.sessionID
+          session_id: this.sessionID,
+          page: this.page
         }
       }).then((response) => {
         this.results = response.data.results
