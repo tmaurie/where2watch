@@ -15,13 +15,17 @@
             class="rounded-lg"
         >
           {{ userData.username }}
-            <v-icon right>mdi-menu</v-icon>
+          <v-icon right>mdi-menu</v-icon>
         </v-btn>
       </template>
       <v-list width="250" rounded>
         <v-list-item :to="`/wl/${userData.id}`">
           <v-icon left>mdi-bookmark</v-icon>
           My watchlist
+        </v-list-item>
+        <v-list-item :to="`/fav/${userData.id}`">
+          <v-icon left>mdi-heart</v-icon>
+          My favorites
         </v-list-item>
         <v-list-item @click="logoutSession">
           <v-icon color="red" left>mdi-logout</v-icon>
@@ -58,7 +62,7 @@ export default {
 
   },
   mounted() {
-    if (this.authorized){
+    if (this.authorized) {
       this.getUserData()
     }
   },
@@ -106,8 +110,8 @@ export default {
             console.log(error)
           })
     },
-     createSession() {
-       axios
+    createSession() {
+      axios
           .post(
               'https://api.themoviedb.org/3/authentication/session/new', {
                 request_token: localStorage.getItem('token')
