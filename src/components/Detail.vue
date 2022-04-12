@@ -175,6 +175,18 @@
             </v-chip>
           </div>
           <div class="mx-n1 py-2">
+            <v-chip color="primary" v-if="media_type === 'movie'" class="ma-1">
+              <v-icon left>
+                mdi-movie-open
+              </v-icon>
+              Movie
+            </v-chip>
+            <v-chip  color="primary" v-else>
+              <v-icon left>
+                mdi-television-classic
+              </v-icon>
+              TV Show
+            </v-chip>
             <v-chip class="ma-1">
               <v-icon left>
                 mdi-clock
