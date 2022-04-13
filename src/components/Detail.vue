@@ -123,15 +123,24 @@
                     </td>
                     <td>
                       <div class="mx-n1">
-                        <v-chip class="ma-1" pill="pill" v-for="country in itemDetail.production_countries"
+                        <v-chip class="ma-1" v-for="country in itemDetail.production_countries"
                                 :key="country.iso_3166_1">
-                          <v-avatar class="text-uppercase" v-if="$vuetify.breakpoint.mdAndUp" left="left"
+                          <v-avatar class="text-uppercase" v-if="$vuetify.breakpoint.mdAndUp" left
                                     :color="$vuetify.theme.dark ? 'grey darken-1' : 'grey lighten-3'">
                             {{ country.iso_3166_1 }}
                           </v-avatar>
                           {{ country.name }}
                         </v-chip>
                       </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Spoken Language</td>
+                    <td>
+                      <v-chip v-for="language in itemDetail.spoken_languages" :key='language.iso_639_1'>
+                        <v-avatar :color="$vuetify.theme.dark ? 'grey darken-1' : 'grey lighten-3'" class="text-uppercase" left>{{language.iso_639_1}}</v-avatar>
+                        {{ language.english_name }}
+                      </v-chip>
                     </td>
                   </tr>
                   <tr v-if="itemDetail.number_of_seasons">
