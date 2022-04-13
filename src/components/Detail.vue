@@ -143,6 +143,17 @@
                       </v-chip>
                     </td>
                   </tr>
+                  <tr>
+                    <td>Production companies</td>
+                    <td>
+                      <v-chip class="ma-1" v-for="company in itemDetail.production_companies" :key='company.id'>
+                        <v-avatar :color="$vuetify.theme.dark ? 'grey darken-1' : 'grey lighten-3'" class="text-uppercase" left>
+                          <v-img contain :src="`https://image.tmdb.org/t/p/w45/${company.logo_path}`"></v-img>
+                        </v-avatar>
+                        {{ company.name }}
+                      </v-chip>
+                    </td>
+                  </tr>
                   <tr v-if="itemDetail.number_of_seasons">
                     <td>Number of seasons</td>
                     <td>{{ itemDetail.number_of_seasons }}</td>
