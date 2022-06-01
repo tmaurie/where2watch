@@ -56,6 +56,7 @@
           <v-tooltip top>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
+                  v-if="authorized"
                   v-bind="attrs"
                   v-on="on"
                   fab
@@ -63,7 +64,7 @@
                   :disabled="loading_watchlist"
                   @click="watchlistAction(!inWatchlist)"
               >
-                <v-icon v-if="inWatchlist" color="primary">
+                <v-icon v-if="itemDetail.account_states.watchlist || inWatchlist" color="primary">
                   mdi-bookmark
                 </v-icon>
                 <v-icon v-else color="primary">
@@ -71,11 +72,13 @@
                 </v-icon>
               </v-btn>
             </template>
-            <span v-text="inWatchlist ? 'Remove from watchlist' : 'Add to watchlist'"></span>
+            <span v-if="itemDetail.account_states"
+                  v-text="itemDetail.account_states.watchlist ? 'Remove from watchlist' : 'Add to watchlist'"></span>
           </v-tooltip>
           <v-tooltip top>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
+                  v-if="authorized"
                   v-bind="attrs"
                   v-on="on"
                   class="ma-2"
@@ -84,7 +87,7 @@
                   :disabled="loading_favorite"
                   @click="favoriteAction(!inFavorites)"
               >
-                <v-icon v-if="inFavorites" color="primary">
+                <v-icon v-if="itemDetail.account_states.favorite || inFavorites" color="primary">
                   mdi-heart
                 </v-icon>
                 <v-icon v-else color="primary">
@@ -92,11 +95,14 @@
                 </v-icon>
               </v-btn>
             </template>
-            <span v-text="inFavorites ? 'Remove from favorites' : 'Add to favorites'"></span>
+            <span v-if="itemDetail.account_states"
+                  v-text="itemDetail.account_states.favorite ? 'Remove from favorites' : 'Add to favorites'"></span>
           </v-tooltip>
           <v-row class="align-baseline" no-gutters>
-            <h1 >{{ itemDetail.name || itemDetail.title }}</h1>
-            <span v-if="(itemDetail.name !== itemDetail.original_name) || (itemDetail.title !== itemDetail.original_title)" class="ml-2 mr-2 font-italic">({{ itemDetail.original_name || itemDetail.original_title }})</span>
+            <h1>{{ itemDetail.name || itemDetail.title }}</h1>
+            <span
+                v-if="(itemDetail.name !== itemDetail.original_name) || (itemDetail.title !== itemDetail.original_title)"
+                class="ml-2 mr-2 font-italic">({{ itemDetail.original_name || itemDetail.original_title }})</span>
             <v-tooltip right>
               <template v-slot:activator="{ on, attrs }">
                 <v-icon class="ml-2" color="primary" v-bind="attrs"
@@ -122,7 +128,6 @@
                       {{ itemDetail.production_countries.length > 1 ? "Countries" : "Country" }}
                     </td>
                     <td>
-                      <div class="mx-n1">
                         <v-chip class="ma-1" v-for="country in itemDetail.production_countries"
                                 :key="country.iso_3166_1">
                           <v-avatar class="text-uppercase" v-if="$vuetify.breakpoint.mdAndUp" left
@@ -131,13 +136,12 @@
                           </v-avatar>
                           {{ country.name }}
                         </v-chip>
-                      </div>
                     </td>
                   </tr>
                   <tr>
                     <td>Spoken Language</td>
                     <td>
-                      <v-chip v-for="language in itemDetail.spoken_languages" :key='language.iso_639_1'>
+                      <v-chip class="ma-1" v-for="language in itemDetail.spoken_languages" :key='language.iso_639_1'>
                         <v-avatar :color="$vuetify.theme.dark ? 'grey darken-1' : 'grey lighten-3'" class="text-uppercase" left>{{language.iso_639_1}}</v-avatar>
                         {{ language.english_name }}
                       </v-chip>
@@ -201,7 +205,7 @@
               </v-icon>
               Movie
             </v-chip>
-            <v-chip  color="primary" v-else>
+            <v-chip color="primary" v-else>
               <v-icon left>
                 mdi-television-classic
               </v-icon>
@@ -264,21 +268,16 @@
                             v-else>mdi-account
                     </v-icon>
                   </v-list-item-avatar>
-
                   <v-list-item-content>
                     <v-list-item-title v-text="person.name"></v-list-item-title>
                     <v-list-item-subtitle v-text="`as ${person.character}`"></v-list-item-subtitle>
                   </v-list-item-content>
-
-
                 </v-list-item>
               </v-list>
-
-
             </v-card>
           </v-dialog>
           <v-chip-group>
-            <v-chip  v-for="provider in providers" :key="provider.provider_id" link :to='`/w/${provider.provider_id}`'>
+            <v-chip v-for="provider in providers" :key="provider.provider_id" link :to='`/w/${provider.provider_id}`'>
               <v-avatar left>
                 <v-img :src="`https://image.tmdb.org/t/p/original/${provider.logo_path}`"></v-img>
               </v-avatar>
@@ -302,17 +301,22 @@ export default {
       dialog: false,
       informationMore: false,
       watchTrailer: false,
-      inWatchlist: this.itemDetail.account_states.watchlist,
-      inFavorites: this.itemDetail.account_states.favorite,
+      inWatchlist: null,
+      inFavorites: null,
       loading_watchlist: false,
       loading_favorite: false,
+      authorized: false,
     }
   },
   props: {
-    getImgUrl: {},
     providers: {},
     itemDetail: {},
     media_type: null
+  },
+  mounted() {
+    if (localStorage.getItem('session_id')) {
+      this.authorized = true
+    }
   },
   methods: {
     getColor(vote) {
