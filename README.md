@@ -2,6 +2,7 @@
 
 See live at [hellow2w.netlify.app/](https://hellow2w.netlify.app/)
 
+<img src='public/site_w2w.png' alt='site' />
 ## Project setup
 ```
 npm install
