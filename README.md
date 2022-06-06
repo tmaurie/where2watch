@@ -1,8 +1,18 @@
-# hello-where2watch
+# Where2watch
 
 See live at [hellow2w.netlify.app/](https://hellow2w.netlify.app/)
 
+## Tech Stack
+
+ - Framework : [VueJS](http://www.vuejs.org)
+ - UI Library : [Vuetify](https://vuetifyjs.com/)
+ - Content : [TMDB API](https://developers.themoviedb.org/3/)
+ - Deployment: [Netlify](https://netlify.app/)
+ - 
+## Screenshots
+
 <img src='public/site_w2w.png' alt='site' />
+
 ## Project setup
 ```
 npm install
