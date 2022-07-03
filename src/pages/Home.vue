@@ -71,7 +71,7 @@ export default {
 
   methods: {
     getPopular() {
-      axios.get('https://api.themoviedb.org/3/trending/movie,tv/week', {
+      axios.get('https://api.themoviedb.org/3/trending/all/week', {
         params: {
           api_key: API_KEY,
           page: 1
